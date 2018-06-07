@@ -3,6 +3,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using PersonalTrainerPortal.Models.Data;
 
 namespace PersonalTrainerPortal.Models
 {
@@ -29,5 +30,16 @@ namespace PersonalTrainerPortal.Models
         {
             return new ApplicationDbContext();
         }
+
+        public DbSet<BlogPost> BlogPosts { get; set; }
+        public DbSet<Client> Clients { get; set; }
+        public DbSet<Comment> Comments { get; set; }
+        public DbSet<Exercise> Exercises { get; set; }
+        public DbSet<FoodItem> FoodItems { get; set; }
+        public DbSet<Image> Images { get; set; }
+        public DbSet<Meal> Meals { get; set; }
+        public DbSet<PersonalTrainer> PersonalTrainers { get; set; }
+        public DbSet<Video> Videos { get; set; }
+        public DbSet<Workout> Workouts { get; set; }
     }
 }
