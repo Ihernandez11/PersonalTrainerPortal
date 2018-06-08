@@ -17,6 +17,8 @@
     <link href="/Content/css/base.css" rel="stylesheet">
     <!-- Modernizr -->
     <script src="/Content/js/modernizr.js"></script>
+    <script data-require="angular.js@1.6.6" data-semver="1.6.6" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.6/angular.min.js"></script>
+    <script src="/Content/angular/mycontroller.js"></script>
     <!--[if lt IE 9]>
       <script src="/Content/js/html5shiv.min.js"></script>
       <script src="/Content/js/respond.min.js"></script>
@@ -48,10 +50,10 @@
                             <a href="#" class="search-overlay-menu-btn"><i class="icon-search-6"></i></a>
                         </li>
                         <li>
-                            <a href="#" data-toggle="modal" data-target="#login" class="hidden-xs">Login</a>
+                            <a href="#" data-toggle="modal" data-target="#login" id="LoginButton" class="hidden-xs">Login</a>
                         </li>
                         <li>
-                            <a href="#" data-toggle="modal" data-target="#register" class="hidden-xs">Register</a>
+                            <a href="#" data-toggle="modal" data-target="#register" id="RegisterButton" class="hidden-xs">Register</a>
                         </li>
                     </ul>
                     <a class="cmn-toggle-switch cmn-toggle-switch__htx open_close" href="javascript:void(0);"><span>Menu mobile</span></a>
@@ -165,7 +167,7 @@
         </div>
         <!-- End container -->
     </header>
-    
+
     @RenderBody()
 
     <footer>
@@ -250,49 +252,9 @@
     <div id="toTop"></div>
     <!-- Back to top button -->
     <!-- Login modal -->
-    <div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="myLogin" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content modal-popup">
-                <a href="#" class="close-link"><i class="icon_close_alt2"></i></a>
-                <form action="#" class="popup-form" id="myLogin">
-                    <input type="text" class="form-control form-white" placeholder="Username">
-                    <input type="text" class="form-control form-white" placeholder="Password">
-                    <div class="checkbox-holder text-left">
-                        <div class="checkbox">
-                            <input type="checkbox" value="accept_1" id="check_1" name="check_1" />
-                            <label for="check_1">
-                                <span>I Agree to the <strong>Terms &amp; Conditions</strong></span>
-                            </label> 
-                        </div>
-                    </div>
-                    <button type="submit" class="btn btn-submit">Submit</button>
-                </form>
-            </div>
-        </div>
-    </div>
+    @Html.Partial("LoginPopupPartial")
     <!-- Register modal -->
-    <div class="modal fade" id="register" tabindex="-1" role="dialog" aria-labelledby="myRegister" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content modal-popup">
-                <a href="#" class="close-link"><i class="icon_close_alt2"></i></a>
-                <form action="#" class="popup-form" id="myRegister">
-                    <input type="text" class="form-control form-white" placeholder="Name">
-                    <input type="text" class="form-control form-white" placeholder="Last Name">
-                    <input type="email" class="form-control form-white" placeholder="Email">
-                    <input type="text" class="form-control form-white" placeholder="Password">
-                    <div class="checkbox-holder text-left">
-                        <div class="checkbox">
-                            <input type="checkbox" value="accept_2" id="check_2" name="check_2" />
-                            <label for="check_2">
-                                <span>I Agree to the <strong>Terms &amp; Conditions</strong></span>
-                            </label>
-                        </div>
-                    </div>
-                    <button type="submit" class="btn btn-submit">Register</button>
-                </form>
-            </div>
-        </div>
-    </div>
+    @Html.Partial("RegisterPopupPartial")
     <!-- Search Menu -->
     <div class="search-overlay-menu">
         <span class="search-overlay-close"><i class="icon_close"></i></span>
@@ -320,6 +282,31 @@
             autoPlayVideo: true
         });
     </script>
+    @if (ViewBag.LoginButtonError == "true")
+    {
+        <script>
+            function LoginClick() {
+                document.getElementById("LoginButton").click(); // Click on the LoginButton
+            }
+
+            $(document).ready(function () {
+                LoginClick();
+            });
+        </script>
+    }
+    @if (ViewBag.RegisterButtonError == "true")
+    {
+        <script>
+            function RegisterClick() {
+                document.getElementById("RegisterButton").click(); // Click on the RegisterButton
+            }
+
+            $(document).ready(function () {
+                RegisterClick();
+            });
+        </script>
+    }
+
 </body>
 
 </html>

@@ -1,5 +1,8 @@
 namespace PersonalTrainerPortal.Migrations
 {
+    using Microsoft.AspNet.Identity;
+    using Microsoft.AspNet.Identity.EntityFramework;
+    using PersonalTrainerPortal.Models;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
@@ -26,6 +29,43 @@ namespace PersonalTrainerPortal.Migrations
             //      new Person { FullName = "Rowan Miller" }
             //    );
             //
+
+
+            context.Users.AddOrUpdate(
+                u => u.UserName,
+                new Models.ApplicationUser
+                {
+                    UserName = "admin@admin.com",
+                    Email = "admin@admin.com",
+                }
+                );
+
+            context.SaveChanges();
+
+
+            // Create a UserManager to add a password to the previously created user
+            var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
+
+            //UserManage.AddPassword will also add password encryption
+            UserManager.AddPassword(context.Users.Where(u => u.Email == "admin@admin.com").FirstOrDefault().Id, "P@ssword123");
+
+            // Create RoleManager to create role for 'Admin'
+            var RoleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
+            RoleManager.Create(new IdentityRole
+            {
+                Name = "Admin"
+            });
+
+            RoleManager.Create(new IdentityRole
+            {
+                Name = "Customer"
+            });
+
+            context.SaveChanges();
+
+            UserManager.AddToRole(context.Users.Where(u => u.Email == "admin@admin.com").FirstOrDefault().Id.ToString(), "Admin");
+
+            context.SaveChanges();
         }
     }
 }
