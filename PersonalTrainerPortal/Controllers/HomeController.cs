@@ -69,12 +69,9 @@ namespace PersonalTrainerPortal.Controllers
                 case SignInStatus.Failure:
                 default:
                     ModelState.AddModelError("", "Invalid login attempt.");
-                    //Need to create a function to add the "in" class to the Login modal (id = Login)
-                    //The js will need to send the model via a json object
-
                     ViewBag.LoginButtonError = "true";
-                    return View("Index", user);
-                    //return Json(new { model });
+                    //return View("Index", user);
+                    return Json(new { signInStatis = "fail", user });
             }
 
             

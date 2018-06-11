@@ -12,6 +12,7 @@
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })*@
                     @*@Html.TextBoxFor(m => m.Email, new { @class = "form-control form-white", placeholder = "Email" })
                         @Html.TextBoxFor(m => m.Password, new { @class = "form-control form-white", placeholder = "Password" })*@
+                    <p class="danger">{{errorMessage}}</p>
                     <input type="text" class="form-control form-white" ng-model="user.email" placeholder="Email" />
                     <input type="text" class="form-control form-white" ng-model="user.password" placeholder="Password" />
                     <div class="checkbox-holder text-left">
