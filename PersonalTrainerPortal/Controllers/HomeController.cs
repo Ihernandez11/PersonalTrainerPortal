@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using PersonalTrainerPortal.Models;
+using PersonalTrainerPortal.Models.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,7 @@ namespace PersonalTrainerPortal.Controllers
 
     public class HomeController : Controller
     {
+        private ApplicationDbContext db = new ApplicationDbContext();
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
@@ -37,11 +39,51 @@ namespace PersonalTrainerPortal.Controllers
         }
 
         [HttpPost]
+        public async Task<ActionResult> LoginUser(LoginViewModel user)
+        {
+            //Person existingPerson = db.Persons.Find(person.Id);
+            if (!ModelState.IsValid)
+            {
+                ModelState.AddModelError("", "Invalid login attempt.");
+                ViewBag.LoginButtonError = "true";
+                return View("Index", user);
+            }
+
+            var result = await SignInManager.PasswordSignInAsync(user.Email, user.Password, user.RememberMe, shouldLockout: false);
+
+            ApplicationUser loggedInUser = new ApplicationUser();
+            if (SignInStatus.Success==0)
+            {
+                loggedInUser = db.Users.Where(u => u.Email == user.Email).SingleOrDefault();
+            }
+
+            switch (result)
+            {
+                case SignInStatus.Success:
+                    //Return JSon to the angular module and then do a get with the user id parameter
+                    return RedirectToAction("Index", "PersonalTrainer", new { userID = loggedInUser.Id});
+                case SignInStatus.Failure:
+                default:
+                    ModelState.AddModelError("", "Invalid login attempt.");
+                    //Need to create a function to add the "in" class to the Login modal (id = Login)
+                    //The js will need to send the model via a json object
+
+                    ViewBag.LoginButtonError = "true";
+                    return View("Index", user);
+                    //return Json(new { model });
+            }
+
+            
+        }
+
+        [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(RegisterViewModel model, string returnUrl)
         {
             if (!ModelState.IsValid)
             {
+                ModelState.AddModelError("", "Invalid login attempt.");
+                ViewBag.LoginButtonError = "true";
                 return View("Index", model);
             }
 
@@ -57,10 +99,8 @@ namespace PersonalTrainerPortal.Controllers
                     ModelState.AddModelError("", "Invalid login attempt.");
                     //Need to create a function to add the "in" class to the Login modal (id = Login)
                     //The js will need to send the model via a json object
-                    if(!ModelState.IsValid)
-                    {
-                        ViewBag.LoginButtonError = "true";
-                    }
+
+                    ViewBag.LoginButtonError = "true";
                     return View("Index", model);
                     //return Json(new { model });
             }
@@ -73,10 +113,25 @@ namespace PersonalTrainerPortal.Controllers
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                
+
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+
+                    //Create Personal Trainer record
+                    //Will need to add a checkbox to capture the user type
+                    PersonalTrainer personalTrainer = new PersonalTrainer()
+                    {
+                        UserID = user.Id,
+                        FirstName = model.FirstName,
+                        LastName = model.LastName,
+                        Email = user.Email
+
+                    };
+                    db.PersonalTrainers.Add(personalTrainer);
+                    db.SaveChanges();
 
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link

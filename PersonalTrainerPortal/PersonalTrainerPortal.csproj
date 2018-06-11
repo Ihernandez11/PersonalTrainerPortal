@@ -200,15 +200,41 @@
     <Compile Include="Migrations\201806072055087_Initial.Designer.cs">
       <DependentUpon>201806072055087_Initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201806102309469_UpdatedPTTable.cs" />
+    <Compile Include="Migrations\201806102309469_UpdatedPTTable.Designer.cs">
+      <DependentUpon>201806102309469_UpdatedPTTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201806102317400_AddedSchoolLocationtoCredentials.cs" />
+    <Compile Include="Migrations\201806102317400_AddedSchoolLocationtoCredentials.Designer.cs">
+      <DependentUpon>201806102317400_AddedSchoolLocationtoCredentials.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201806102328040_%27AddedProductDescriptionToPTModel%27.cs" />
+    <Compile Include="Migrations\201806102328040_%27AddedProductDescriptionToPTModel%27.Designer.cs">
+      <DependentUpon>201806102328040_%27AddedProductDescriptionToPTModel%27.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201806102344443_AddedDBSets.cs" />
+    <Compile Include="Migrations\201806102344443_AddedDBSets.Designer.cs">
+      <DependentUpon>201806102344443_AddedDBSets.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201806110232471_UpdatedPersonalTrainerandClientIDtoString.cs" />
+    <Compile Include="Migrations\201806110232471_UpdatedPersonalTrainerandClientIDtoString.Designer.cs">
+      <DependentUpon>201806110232471_UpdatedPersonalTrainerandClientIDtoString.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201806110307337_AddedUserIDtoPTandClientClass.cs" />
+    <Compile Include="Migrations\201806110307337_AddedUserIDtoPTandClientClass.Designer.cs">
+      <DependentUpon>201806110307337_AddedUserIDtoPTandClientClass.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Data\BlogPost.cs" />
     <Compile Include="Models\Data\Client.cs" />
     <Compile Include="Models\Data\Comment.cs" />
+    <Compile Include="Models\Data\Credential.cs" />
     <Compile Include="Models\Data\Exercise.cs" />
     <Compile Include="Models\Data\FoodItem.cs" />
     <Compile Include="Models\Data\Image.cs" />
     <Compile Include="Models\Data\Meal.cs" />
+    <Compile Include="Models\Data\Offering.cs" />
     <Compile Include="Models\Data\PersonalTrainer.cs" />
     <Compile Include="Models\Data\Video.cs" />
     <Compile Include="Models\Data\Workout.cs" />
@@ -218,7 +244,7 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\angular\mycontroller.js" />
+    <Content Include="Content\angular\loginController.js" />
     <Content Include="Content\assets\contact.php" />
     <Content Include="Content\assets\newsletter.php" />
     <Content Include="Content\assets\subscribe_plan.php" />
@@ -547,6 +573,24 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201806072055087_Initial.resx">
       <DependentUpon>201806072055087_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806102309469_UpdatedPTTable.resx">
+      <DependentUpon>201806102309469_UpdatedPTTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806102317400_AddedSchoolLocationtoCredentials.resx">
+      <DependentUpon>201806102317400_AddedSchoolLocationtoCredentials.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806102328040_%27AddedProductDescriptionToPTModel%27.resx">
+      <DependentUpon>201806102328040_%27AddedProductDescriptionToPTModel%27.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806102344443_AddedDBSets.resx">
+      <DependentUpon>201806102344443_AddedDBSets.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806110232471_UpdatedPersonalTrainerandClientIDtoString.resx">
+      <DependentUpon>201806110232471_UpdatedPersonalTrainerandClientIDtoString.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806110307337_AddedUserIDtoPTandClientClass.resx">
+      <DependentUpon>201806110307337_AddedUserIDtoPTandClientClass.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -3,6 +3,7 @@ namespace PersonalTrainerPortal.Migrations
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.EntityFramework;
     using PersonalTrainerPortal.Models;
+    using PersonalTrainerPortal.Models.Data;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
@@ -31,13 +32,15 @@ namespace PersonalTrainerPortal.Migrations
             //
 
 
+            ApplicationUser user = new ApplicationUser()
+            {
+                UserName = "admin@admin.com",
+                Email = "admin@admin.com"
+            };
+
             context.Users.AddOrUpdate(
                 u => u.UserName,
-                new Models.ApplicationUser
-                {
-                    UserName = "admin@admin.com",
-                    Email = "admin@admin.com",
-                }
+                user
                 );
 
             context.SaveChanges();
@@ -65,6 +68,17 @@ namespace PersonalTrainerPortal.Migrations
 
             UserManager.AddToRole(context.Users.Where(u => u.Email == "admin@admin.com").FirstOrDefault().Id.ToString(), "Admin");
 
+            context.SaveChanges();
+
+            PersonalTrainer personalTrainer = new PersonalTrainer()
+            {
+                UserID = user.Id,
+                FirstName = "admin",
+                LastName = "admin",
+                Email = user.Email
+
+            };
+            context.PersonalTrainers.Add(personalTrainer);
             context.SaveChanges();
         }
     }

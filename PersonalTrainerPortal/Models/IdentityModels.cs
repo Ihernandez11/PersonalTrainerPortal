@@ -41,5 +41,8 @@ namespace PersonalTrainerPortal.Models
         public DbSet<PersonalTrainer> PersonalTrainers { get; set; }
         public DbSet<Video> Videos { get; set; }
         public DbSet<Workout> Workouts { get; set; }
+        public DbSet<Credential> Credentials { get; set; }
+        public DbSet<Offering> Offerings { get; set; }
+
     }
 }

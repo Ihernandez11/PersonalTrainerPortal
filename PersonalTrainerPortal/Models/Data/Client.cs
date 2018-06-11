@@ -10,6 +10,7 @@ namespace PersonalTrainerPortal.Models.Data
     {
         [Required]
         public int ID { get; set; }
+        public string UserID { get; set; }
         [Required, Display(Name = "First Name")]
         public string FirstName { get; set; }
         [Required, Display(Name = "Last Name")]

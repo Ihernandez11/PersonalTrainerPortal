@@ -1,7 +1,113 @@
-﻿
+﻿@model PersonalTrainerPortal.Models.Data.PersonalTrainer
+
 @{
     ViewBag.Title = "Index";
 }
 
-<h2>Personal Trainer Portal</h2>
+<!-- SubHeader =============================================== -->
+<section class="parallax_window_in" data-parallax="scroll" data-image-src="img/sub_header_about.jpg" data-natural-width="1400" data-natural-height="470">
+    <div id="sub_content_in">
+        <h1>@Model.FirstName @Model.LastName</h1>
+        <p>"@Model.Slogan"</p>
+    </div>
+</section>
+<!-- End section -->
+<!-- End SubHeader ============================================ -->
 
+<div class="container_styled_1">
+    <div class="container margin_60">
+        <div class="row">
+            <aside class="col-md-3" id="sidebar">
+                <div class="theiaStickySidebar">
+                    <div class="profile">
+                        <p class="text-center"><img src="img/teacher_2_small.jpg" alt="Teacher" class="img-circle styled_2"></p>
+                        <ul class="social_teacher">
+                            <li><a href="#"><i class="icon-facebook"></i></a></li>
+                            <li><a href="#"><i class="icon-twitter"></i></a></li>
+                            <li><a href="#"><i class=" icon-google"></i></a></li>
+                        </ul>
+                        <ul>
+                            <li>Name <strong class="pull-right">@Model.FirstName @Model.LastName</strong> </li>
+                            <li>Email <strong class="pull-right">@Model.Email</strong></li>
+                            <li>Telephone  <strong class="pull-right">@Model.PhoneNumber</strong></li>
+                            <!--<li>Lessons <strong class="pull-right">12</strong></li>
+                                <li>Courses <strong class="pull-right">15</strong></li>-->
+                        </ul>
+
+                    </div><!-- End box-sidebar -->
+                </div>
+            </aside>
+            <div class="col-md-9">
+                <div class="box_style_6">
+                    <div class="indent_title_in">
+                        <i class="icon_document_alt"></i>
+                        <h3>Profile</h3>
+                        <p>@Model.Slogan</p>
+                    </div>
+                    <div class="wrapper_indent">
+                        <p>@Model.ProfileDescription</p>
+                    @if (Model.Credentials != null)
+                    {
+                        <h4>Credentials</h4>
+                        <p>@Model.CredentialsDescription</p>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <ul class="list_3">
+                                    @foreach (var c in Model.Credentials)
+                                    {
+                                        <li><strong> @c.GraduationYear - @c.Description</strong><p>@c.School - @c.SchoolLocation</p></li>
+                                    }
+
+
+                                </ul>
+                            </div>
+                            <!--<div class="col-md-6">
+                                <ul class="list_3">
+                                    <li><strong>September 2009 - Degree in Human Science</strong><p>University of Cambrige - United Kingdom</p></li>
+                                    <li><strong>December 2012 - Master course in Pilates</strong><p>University of Cambrige - United Kingdom</p></li>
+                                </ul>
+                            </div>-->
+                        </div><!-- End row-->
+                    }
+                    </div><!--wrapper_indent -->
+                    <hr class="styled_2">
+                    <div class="indent_title_in">
+                        <i class="icon_archive_alt"></i>
+                        <h3>My Products</h3>
+                    </div>
+                    <div class="wrapper_indent">
+                        <p>@Model.ProductsDescription</p>
+                        <div class="table-responsive">
+                            <table class="table table-striped" id="trainer_courses">
+                                <thead>
+                                    <tr>
+                                        <th>Product</th>
+                                        <th>Description</th>
+                                        <th>Price</th>
+                                        <th>Rate</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                   @if (Model.Offerings != null)
+                                   {
+                                    foreach (var o in Model.Offerings)
+                                    {
+                                        <tr>
+                                            <td>@o.Title</td>
+                                            <td><a href="#">@o.Description</a></td>
+                                            <td>@o.Price</td>
+                                            <td class="rating_2"><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class=" icon-star-empty"></i><i class=" icon-star-empty"></i></td>
+                                        </tr>
+                                    }
+                                   }
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div><!--wrapper_indent -->
+                </div>
+            </div>
+
+        </div><!--End row -->
+    </div><!--End container -->
+</div>
