@@ -41,7 +41,8 @@ namespace PersonalTrainerPortal.Controllers
         [HttpPost]
         public async Task<ActionResult> LoginUser(LoginViewModel user)
         {
-            //Person existingPerson = db.Persons.Find(person.Id);
+            //Check if the modelstate is valid. If it is not valid, we will return a json object that provides the 
+            //error state and error message that angularjs will populate on the page
             if (!ModelState.IsValid)
             {
                 ModelState.AddModelError("", "Invalid login attempt.");
@@ -51,6 +52,7 @@ namespace PersonalTrainerPortal.Controllers
 
             var result = await SignInManager.PasswordSignInAsync(user.Email, user.Password, user.RememberMe, shouldLockout: false);
 
+            //Create an instance of the loggedInUser to capture the ID to send via the get
             ApplicationUser loggedInUser = new ApplicationUser();
             if (SignInStatus.Success==0)
             {
@@ -61,7 +63,9 @@ namespace PersonalTrainerPortal.Controllers
             {
                 case SignInStatus.Success:
                     //Return JSon to the angular module and then do a get with the user id parameter
-                    return RedirectToAction("Index", "PersonalTrainer", new { userID = loggedInUser.Id});
+                    //return RedirectToAction("Index", "PersonalTrainer", new { userID = loggedInUser.Id});
+                    return Json(new { signInStatus = "success", UID = loggedInUser.Id });
+
                 case SignInStatus.Failure:
                 default:
                     ModelState.AddModelError("", "Invalid login attempt.");

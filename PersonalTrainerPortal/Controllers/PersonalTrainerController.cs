@@ -14,14 +14,14 @@ namespace PersonalTrainerPortal.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: PersonalTrainer
-        public ActionResult Index(string userID)
+        public ActionResult Index(string UID)
         {
-            if (userID == null)
+            if (UID == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            PersonalTrainer personalTrainer = db.PersonalTrainers.Where(p=> p.UserID==userID).SingleOrDefault();
+            PersonalTrainer personalTrainer = db.PersonalTrainers.Where(p=> p.UserID==UID).SingleOrDefault();
             //personalTrainer.Credentials = db.Credentials.Where(c => c.PersonalTrainerID == personalTrainer.ID).ToList();
             //personalTrainer.Offerings = db.Offerings.Where(o => o.PersonalTrainerID == personalTrainer.ID).ToList();
 
