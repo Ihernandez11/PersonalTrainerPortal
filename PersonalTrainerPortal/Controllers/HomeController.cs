@@ -80,24 +80,18 @@ namespace PersonalTrainerPortal.Controllers
         [HttpPost]
         public async Task<ActionResult> RegisterUser(RegisterViewModel user)
         {
-            if (user.FirstName == null)
+            //Add ModelState errors for null first and last name
+            if (user.FirstName == null )
             {
-                ModelState.AddModelError("", "Please enter a First Name");
-                return Json(new
-                {
-                    ModelState.Values, registerStatus = "modelfail"
-                });
+                ModelState.AddModelError("firstname", "Please enter a First Name");
             }
 
             if (user.LastName == null)
             {
-                ModelState.AddModelError("", "Please enter a Last Name");
-                return Json(new
-                {
-                    ModelState.Values,
-                    registerStatus = "modelfail"
-                });
+                ModelState.AddModelError("lastname", "Please enter a Last Name");
             }
+
+
 
             if (ModelState.IsValid)
             {
@@ -144,8 +138,18 @@ namespace PersonalTrainerPortal.Controllers
             }
 
             ViewBag.RegisterButtonError = "true";
-            // If we got this far, something failed, redisplay form
-            return Json(new { registerStatus = "fail", user });
+            //create a list of the errors from ModelState
+            List<string> errors = new List<string>();
+            //The Errors array is inside the Values array, so we need a nested foreach
+            foreach (var v in ModelState.Values)
+            {
+                foreach(var e in v.Errors)
+                {
+                    errors.Add(e.ErrorMessage);
+                }
+            }
+            // If we got this far, something failed, return errors
+            return Json(new { registerStatus = "modelfail", user, errors});
         }
 
         private void AddErrors(IdentityResult result)

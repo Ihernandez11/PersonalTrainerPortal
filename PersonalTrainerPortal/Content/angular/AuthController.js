@@ -27,7 +27,7 @@
 
         $scope.RegisterUser = function (user) {
             $http.post("/home/registeruser", user).then(function (response) {
-                console.log(response)
+                //console.log(response)
 
                 //Redirect if success
                 if (response.data.registerStatus == "success") {
@@ -36,52 +36,18 @@
                 }
 
                 if (response.data.registerStatus == "modelfail") {
-                    console.log(response.data);
-                    $scope.errorMessages = [];
+                    //console.log(response.data);
+                    //create a scope variable with the errors returned in the response
+                    $scope.errorMessages = response.data.errors;
 
-                    console.log(response.data.Values.length);
+                    //console.log($scope.errorMessages);
 
-                    var i;
-                    for (i = 0; i < response.data.Values.length; i++) {
-                        var j;
-                        for (j = 0; j < response.data.Values[i].Errors.length; j++) {
-                            $scope.errorMessages.push(response.data.Values[i].Errors[j].ErrorMessage);
-                        }
-                    }
-
-                    //var values = [];
-                    //values.push(response.data.Values);
-                    //console.log(values);
-
-                    //var i;
-                    //for (i = 0; i < values.length; i++)
-                    //{
-                    //    var errors = [];
-                    //    var j;
-                    //    for (j = 0; j < values.Errors.length; j++)
-                    //    {
-                    //        errors.push(values[i].Errors[j]);
-                    //        console.log(errors);
-                    //    }
-
-
-
-                    //var j;
-                    //for (j = 0; j < errors.length, j++)
-                    //{
-                    //    $scope.errorMessages = [];
-                    //    $scope.errorMessages.push(errors[j]);
-                    //    console.log($scope.errorMessages);
-                    //}
-
-                    //$scope.errorMessages.push(errors[i].ErrorMessage);
-                //}
-                //$scope.errorMessages = response.data.ModelState.Values.ErrorMessages;
+                    
             }
 
                 //Reload page with error if fail
                 if (response.data.registerStatus == "fail") {
-                    console.log(response.data);
+                    //console.log(response.data);
 
                     $scope.errorMessages = response.data.result.Errors;
                 }
