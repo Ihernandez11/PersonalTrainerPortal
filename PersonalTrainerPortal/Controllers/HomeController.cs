@@ -47,7 +47,7 @@ namespace PersonalTrainerPortal.Controllers
             {
                 ModelState.AddModelError("", "Invalid login attempt.");
                 ViewBag.LoginButtonError = "true";
-                return View("Index", user);
+                return Json(new { ModelState });
             }
 
             var result = await SignInManager.PasswordSignInAsync(user.Email, user.Password, user.RememberMe, shouldLockout: false);
@@ -71,64 +71,53 @@ namespace PersonalTrainerPortal.Controllers
                     ModelState.AddModelError("", "Invalid login attempt.");
                     ViewBag.LoginButtonError = "true";
                     //return View("Index", user);
-                    return Json(new { signInStatis = "fail", user });
-            }
-
-            
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Login(RegisterViewModel model, string returnUrl)
-        {
-            if (!ModelState.IsValid)
-            {
-                ModelState.AddModelError("", "Invalid login attempt.");
-                ViewBag.LoginButtonError = "true";
-                return View("Index", model);
-            }
-
-            // This doesn't count login failures towards account lockout
-            // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
-            switch (result)
-            {
-                case SignInStatus.Success:
-                    return RedirectToAction("Index","PersonalTrainer");
-                case SignInStatus.Failure:
-                default:
-                    ModelState.AddModelError("", "Invalid login attempt.");
-                    //Need to create a function to add the "in" class to the Login modal (id = Login)
-                    //The js will need to send the model via a json object
-
-                    ViewBag.LoginButtonError = "true";
-                    return View("Index", model);
-                    //return Json(new { model });
+                    return Json(new { signInStatus = "fail", user });
             }
         }
 
+       
+
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterViewModel model)
+        public async Task<ActionResult> RegisterUser(RegisterViewModel user)
         {
+            if (user.FirstName == null)
+            {
+                ModelState.AddModelError("", "Please enter a First Name");
+                return Json(new
+                {
+                    ModelState.Values, registerStatus = "modelfail"
+                });
+            }
+
+            if (user.LastName == null)
+            {
+                ModelState.AddModelError("", "Please enter a Last Name");
+                return Json(new
+                {
+                    ModelState.Values,
+                    registerStatus = "modelfail"
+                });
+            }
+
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var appUser = new ApplicationUser { UserName = user.Email, Email = user.Email };
                 
 
-                var result = await UserManager.CreateAsync(user, model.Password);
+                var result = await UserManager.CreateAsync(appUser, user.Password);
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                    await SignInManager.SignInAsync(appUser, isPersistent: false, rememberBrowser: false);
 
                     //Create Personal Trainer record
                     //Will need to add a checkbox to capture the user type
+
                     PersonalTrainer personalTrainer = new PersonalTrainer()
                     {
-                        UserID = user.Id,
-                        FirstName = model.FirstName,
-                        LastName = model.LastName,
-                        Email = user.Email
+                        UserID = appUser.Id,
+                        FirstName = user.FirstName,
+                        LastName = user.LastName,
+                        Email = appUser.Email
 
                     };
                     db.PersonalTrainers.Add(personalTrainer);
@@ -140,15 +129,23 @@ namespace PersonalTrainerPortal.Controllers
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                    return RedirectToAction("Index", "PersonalTrainer");
+                    ApplicationUser newUser = new ApplicationUser();
+                    newUser = db.Users.Where(u => u.Email == user.Email).SingleOrDefault();
+
+                    return Json(new { registerStatus = "success", UID = newUser.Id });
                 }
                 
-                AddErrors(result);
+                if (!result.Succeeded)
+                {
+                    AddErrors(result);
+                    return Json(new { registerStatus = "fail", result, user });
+                }
+                
             }
 
             ViewBag.RegisterButtonError = "true";
             // If we got this far, something failed, redisplay form
-            return View("Index", model);
+            return Json(new { registerStatus = "fail", user });
         }
 
         private void AddErrors(IdentityResult result)

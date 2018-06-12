@@ -1,29 +1,27 @@
-﻿@*@model PersonalTrainerPortal.Models.RegisterViewModel
-
-<div class="modal fade" id="register" tabindex="-1" role="dialog" aria-labelledby="myRegister" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content modal-popup">
-            <a href="#" class="close-link"><i class="icon_close_alt2"></i></a>
-            @using (Html.BeginForm("Register", "Home", FormMethod.Post, new { @class = "popup-form", id = "myRegister" }))
-            {
-                @Html.AntiForgeryToken()
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control form-white", placeholder = "First Name" })
-                @Html.TextBoxFor(m => m.LastName, new { @class = "form-control form-white", placeholder = "Last Name" })
-                @Html.TextBoxFor(m => m.Email, new { @class = "form-control form-white", placeholder = "Email" })
-                @Html.TextBoxFor(m => m.Password, new { @class = "form-control form-white", placeholder = "Password" })
-                @Html.TextBoxFor(m => m.ConfirmPassword, new { @class = "form-control form-white", placeholder = "Confirm Password" })
-
-                <div class="checkbox-holder text-left">
-                    <div class="checkbox">
-                        <input type="checkbox" value="accept_2" id="check_2" name="check_2" />
-                        <label for="check_2">
-                            <span>I Agree to the <strong>Terms &amp; Conditions</strong></span>
-                        </label>
+﻿
+    <div class="modal fade" id="register" tabindex="-1" role="dialog" aria-labelledby="myRegister" aria-hidden="true" ng-controller="RegisterController">
+        <div class="modal-dialog">
+            <div class="modal-content modal-popup">
+                <a href="#" class="close-link"><i class="icon_close_alt2"></i></a>
+                <form class="popup-form" id="myRegister">
+                    <ul ng-repeat="error in errorMessages">
+                        <li class="text-danger"><strong>{{error}}</strong></li>
+                    </ul>
+                    <input type="text" class="form-control form-white" placeholder="First Name" ng-model="user.firstname" />
+                    <input type="text" class="form-control form-white" placeholder="Last Name" ng-model="user.lastname" />
+                    <input type="text" class="form-control form-white" placeholder="Email" ng-model="user.email" />
+                    <input type="text" class="form-control form-white" placeholder="Password" ng-model="user.password" />
+                    <input type="text" class="form-control form-white" placeholder="Confirm Password" ng-model="user.confirmpassword" />
+                    <div class="checkbox-holder text-left">
+                        <div class="checkbox">
+                            <input type="checkbox" value="accept_2" id="check_2" name="check_2" />
+                            <label for="check_2">
+                                <span>I Agree to the <strong>Terms &amp; Conditions</strong></span>
+                            </label>
+                        </div>
                     </div>
-                </div>
-                <button type="submit" class="btn btn-submit">Register</button>
-            }
+                    <button type="submit" class="btn btn-submit" ng-click="RegisterUser(user)">Register</button>
+                </form>
+            </div>
         </div>
     </div>
-</div>*@

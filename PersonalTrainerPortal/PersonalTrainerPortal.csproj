@@ -244,7 +244,7 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\angular\loginController.js" />
+    <Content Include="Content\angular\AuthController.js" />
     <Content Include="Content\assets\contact.php" />
     <Content Include="Content\assets\newsletter.php" />
     <Content Include="Content\assets\subscribe_plan.php" />

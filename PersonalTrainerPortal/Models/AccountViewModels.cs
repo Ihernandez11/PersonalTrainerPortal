@@ -83,9 +83,7 @@ namespace PersonalTrainerPortal.Models
         public string FirstName { get; set; }
 
         public string LastName { get; set; }
-
-        [Display(Name = "Remember me?")]
-        public bool RememberMe { get; set; }
+        
     }
 
     public class ResetPasswordViewModel

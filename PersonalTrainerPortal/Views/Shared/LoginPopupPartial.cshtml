@@ -1,18 +1,12 @@
 ﻿@*@model PersonalTrainerPortal.Models.RegisterViewModel*@
 
-<div ng-app="LoginModule">
+
     <div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="myLogin" aria-hidden="true" ng-controller="LoginController">
         <div class="modal-dialog">
             <div class="modal-content modal-popup">
                 <a href="#" class="close-link"><i class="icon_close_alt2"></i></a>
-                @*@using (Html.BeginForm("Login", "Home", FormMethod.Post, new { @class = "popup-form", role = "form", id = "myLogin" }))
-                    {*@
                 <form class="popup-form" id="myLogin">
-                    @*@Html.AntiForgeryToken()
-                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })*@
-                    @*@Html.TextBoxFor(m => m.Email, new { @class = "form-control form-white", placeholder = "Email" })
-                        @Html.TextBoxFor(m => m.Password, new { @class = "form-control form-white", placeholder = "Password" })*@
-                    <p class="danger">{{errorMessage}}</p>
+                    <p class="text-danger"><strong>{{errorMessage}}</strong></p>
                     <input type="text" class="form-control form-white" ng-model="user.email" placeholder="Email" />
                     <input type="text" class="form-control form-white" ng-model="user.password" placeholder="Password" />
                     <div class="checkbox-holder text-left">
@@ -24,10 +18,9 @@
                         </div>
                     </div>
                     <button type="submit" class="btn btn-submit" ng-click="LoginUser(user)">Submit</button>
-                    @*}*@
                 </form>
             </div>
         </div>
     </div>
-</div>
+
 
