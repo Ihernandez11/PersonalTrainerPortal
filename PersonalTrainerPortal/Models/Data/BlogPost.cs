@@ -19,6 +19,6 @@ namespace PersonalTrainerPortal.Models.Data
 
         public List<Comment> Comments { get; set; }
         [Required]
-        public int PersonalTrainerID { get; set; }
+        public string PersonalTrainerID { get; set; }
     }
 }

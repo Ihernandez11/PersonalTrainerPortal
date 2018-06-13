@@ -1,5 +1,5 @@
 ﻿(function () {
-    var app = angular.module("AuthModule", []);
+    var app = angular.module("MainModule", []);
     //LoginController
     var LoginController = function ($scope, $http, $window) {
 
@@ -31,8 +31,17 @@
 
                 //Redirect if success
                 if (response.data.registerStatus == "success") {
-                    //Redirect to PT/index page with the userID
-                    $window.location.href = '/personaltrainer/index?UID=' + response.data.UID;
+                    console.log(user.UserType);
+                    //Redirect to PT/index page with the userID if it's a trainerType is true
+                    if (UserType == "trainer") {
+                        $window.location.href = '/personaltrainer/index?UID=' + response.data.UID;
+                    }
+                    
+                    //Redirect to Client/index page with userID if ClientType is true
+                    if (user.UserType == "client") {
+                        $window.location.href = '/client/index?UID=' + response.data.UID;
+                    }
+                    
                 }
 
                 if (response.data.registerStatus == "modelfail") {
@@ -58,5 +67,6 @@
     }
 
     app.controller("RegisterController", ["$scope", "$http", "$window", RegisterController]);
+
 }());
 

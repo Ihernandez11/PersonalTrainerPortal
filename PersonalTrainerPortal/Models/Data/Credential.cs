@@ -15,7 +15,7 @@ namespace PersonalTrainerPortal.Models.Data
         public string SchoolLocation { get; set; }
         //Month and Year
         public string GraduationYear { get; set; }
-        public int PersonalTrainerID { get; set; }
+        public string PersonalTrainerID { get; set; }
 
     }
 }

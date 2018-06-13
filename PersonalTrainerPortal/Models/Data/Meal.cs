@@ -18,7 +18,7 @@ namespace PersonalTrainerPortal.Models.Data
         public DateTime Date { get; set; }
 
         public string Instructions { get; set; }
-        public int ClientID { get; set; }
+        public string ClientID { get; set; }
 
     }
 }

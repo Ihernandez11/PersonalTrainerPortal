@@ -12,13 +12,28 @@
                     <input type="text" class="form-control form-white" placeholder="Email" ng-model="user.Email" />
                     <input type="text" class="form-control form-white" placeholder="Password" ng-model="user.Password" />
                     <input type="text" class="form-control form-white" placeholder="Confirm Password" ng-model="user.ConfirmPassword" />
-                    <div class="checkbox-holder text-left">
+                    @*<div class="checkbox-holder text-left">
                         <div class="checkbox">
-                            <input type="checkbox" value="accept_2" id="check_2" name="check_2" />
+                            <input type="checkbox" value="true" id="check_2" name="check_2" ng-model="user.TrainerType" />
                             <label for="check_2">
-                                <span>I Agree to the <strong>Terms &amp; Conditions</strong></span>
+                                <span>I am a personal <strong>trainer</strong></span>
                             </label>
                         </div>
+                        <div class="checkbox">
+                            <input type="checkbox" value="true" id="check_3" name="check_3" ng-model="user.ClientType" />
+                            <label for="check_3">
+                                <span>I am a <strong>client</strong></span>
+                            </label>
+                        </div>
+                    </div>*@
+                    @*Need to fix radio buttons!*@
+                    <div class="form-check">
+                        <input class="form-check-input" name="UserType" type="radio" value="trainer" id="trainer" ng-model="user.UserType"/>
+                        <label class="form-check-label" for="trainer">I am a Personal Trainer</label>    
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" name="UserType" type="radio" value="client" id="client" ng-model="user.UserType" />
+                        <label class="form-check-label" for="client">I am a Personal Trainer</label>
                     </div>
                     <button type="submit" class="btn btn-submit" ng-click="RegisterUser(user)">Register</button>
                 </form>

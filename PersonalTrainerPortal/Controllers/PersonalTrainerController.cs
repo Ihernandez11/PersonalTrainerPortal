@@ -27,5 +27,20 @@ namespace PersonalTrainerPortal.Controllers
 
             return View(personalTrainer);
         }
+
+
+        public ActionResult Clients(string UID)
+        {
+            if (UID == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            PersonalTrainer personalTrainer = db.PersonalTrainers.Where(p => p.UserID == UID).SingleOrDefault();
+            List<Client> clients = db.Clients.Where(c => c.PersonalTrainerID == personalTrainer.UserID).ToList();
+
+            return View(clients);
+        }
+
     }
 }

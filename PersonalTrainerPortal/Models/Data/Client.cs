@@ -19,8 +19,9 @@ namespace PersonalTrainerPortal.Models.Data
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
         [Required]
-        public int PersonalTrainerID { get; set; }
+        public string PersonalTrainerID { get; set; }
         
+
         public List<Workout> Workouts { get; set; }
         public List<Meal> Meals { get; set; }
     }

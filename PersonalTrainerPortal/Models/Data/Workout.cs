@@ -22,6 +22,6 @@ namespace PersonalTrainerPortal.Models.Data
         public int TimeInterval { get; set; }
         public string Instructions { get; set; }
         public int ExerciseID { get; set; }
-        public int ClientID { get; set; }
+        public string ClientID { get; set; }
     }
 }

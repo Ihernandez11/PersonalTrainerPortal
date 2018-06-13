@@ -17,7 +17,7 @@ namespace PersonalTrainerPortal.Models.Data
         public int CarbGrams { get; set; }
         public int FatGrams { get; set; }
         [Required]
-        public int PersonalTrainerID { get; set; }
+        public string PersonalTrainerID { get; set; }
 
     }
 }

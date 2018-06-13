@@ -106,6 +106,10 @@ namespace PersonalTrainerPortal.Controllers
                     //Create Personal Trainer record
                     //Will need to add a checkbox to capture the user type
 
+                    if(user.UserType=="trainer")
+                    {
+
+                    
                     PersonalTrainer personalTrainer = new PersonalTrainer()
                     {
                         UserID = appUser.Id,
@@ -114,8 +118,26 @@ namespace PersonalTrainerPortal.Controllers
                         Email = appUser.Email
 
                     };
-                    db.PersonalTrainers.Add(personalTrainer);
-                    db.SaveChanges();
+
+                        db.PersonalTrainers.Add(personalTrainer);
+                        db.SaveChanges();
+
+                    }
+
+                    if(user.UserType=="client")
+                    {
+                        Client client = new Client()
+                        {
+                            UserID = appUser.Id,
+                            FirstName = user.FirstName,
+                            LastName = user.LastName,
+                            Email = appUser.Email
+                        };
+
+                        db.Clients.Add(client);
+                        db.SaveChanges();
+                    }
+                    
 
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
