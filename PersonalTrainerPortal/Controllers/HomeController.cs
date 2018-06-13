@@ -148,7 +148,7 @@ namespace PersonalTrainerPortal.Controllers
                     ApplicationUser newUser = new ApplicationUser();
                     newUser = db.Users.Where(u => u.Email == user.Email).SingleOrDefault();
 
-                    return Json(new { registerStatus = "success", UID = newUser.Id });
+                    return Json(new { registerStatus = "success", UID = newUser.Id, user });
                 }
                 
                 if (!result.Succeeded)

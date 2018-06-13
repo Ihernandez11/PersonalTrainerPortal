@@ -18,7 +18,7 @@ namespace PersonalTrainerPortal.Models.Data
         [Required, EmailAddress]
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
-        [Required]
+        
         public string PersonalTrainerID { get; set; }
         
 

@@ -229,6 +229,10 @@
     <Compile Include="Migrations\201806130118220_UpdatedPTIDtoStringWhereNecessary.Designer.cs">
       <DependentUpon>201806130118220_UpdatedPTIDtoStringWhereNecessary.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201806132059546_RemovedRequiredPTIDFromClient.cs" />
+    <Compile Include="Migrations\201806132059546_RemovedRequiredPTIDFromClient.Designer.cs">
+      <DependentUpon>201806132059546_RemovedRequiredPTIDFromClient.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Data\BlogPost.cs" />
@@ -601,6 +605,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201806130118220_UpdatedPTIDtoStringWhereNecessary.resx">
       <DependentUpon>201806130118220_UpdatedPTIDtoStringWhereNecessary.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806132059546_RemovedRequiredPTIDFromClient.resx">
+      <DependentUpon>201806132059546_RemovedRequiredPTIDFromClient.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

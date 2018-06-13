@@ -33,7 +33,7 @@
                 if (response.data.registerStatus == "success") {
                     console.log(user.UserType);
                     //Redirect to PT/index page with the userID if it's a trainerType is true
-                    if (UserType == "trainer") {
+                    if (user.UserType == "trainer") {
                         $window.location.href = '/personaltrainer/index?UID=' + response.data.UID;
                     }
                     

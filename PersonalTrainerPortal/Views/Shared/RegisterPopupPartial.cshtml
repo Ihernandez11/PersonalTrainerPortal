@@ -1,18 +1,18 @@
 ﻿
-    <div class="modal fade" id="register" tabindex="-1" role="dialog" aria-labelledby="myRegister" aria-hidden="true" ng-controller="RegisterController">
-        <div class="modal-dialog">
-            <div class="modal-content modal-popup">
-                <a href="#" class="close-link"><i class="icon_close_alt2"></i></a>
-                <form class="popup-form" id="myRegister">
-                    <ul ng-repeat="error in errorMessages">
-                        <li class="text-danger"><strong>{{error}}</strong></li>
-                    </ul>
-                    <input type="text" class="form-control form-white" placeholder="First Name" ng-model="user.FirstName" />
-                    <input type="text" class="form-control form-white" placeholder="Last Name" ng-model="user.LastName" />
-                    <input type="text" class="form-control form-white" placeholder="Email" ng-model="user.Email" />
-                    <input type="text" class="form-control form-white" placeholder="Password" ng-model="user.Password" />
-                    <input type="text" class="form-control form-white" placeholder="Confirm Password" ng-model="user.ConfirmPassword" />
-                    @*<div class="checkbox-holder text-left">
+<div class="modal fade" id="register" tabindex="-1" role="dialog" aria-labelledby="myRegister" aria-hidden="true" ng-controller="RegisterController">
+    <div class="modal-dialog">
+        <div class="modal-content modal-popup">
+            <a href="#" class="close-link"><i class="icon_close_alt2"></i></a>
+            <form class="popup-form" id="myRegister">
+                <ul ng-repeat="error in errorMessages">
+                    <li class="text-danger"><strong>{{error}}</strong></li>
+                </ul>
+                <input type="text" class="form-control form-white" placeholder="First Name" ng-model="user.FirstName" />
+                <input type="text" class="form-control form-white" placeholder="Last Name" ng-model="user.LastName" />
+                <input type="text" class="form-control form-white" placeholder="Email" ng-model="user.Email" />
+                <input type="text" class="form-control form-white" placeholder="Password" ng-model="user.Password" />
+                <input type="text" class="form-control form-white" placeholder="Confirm Password" ng-model="user.ConfirmPassword" />
+                @*<div class="checkbox-holder text-left">
                         <div class="checkbox">
                             <input type="checkbox" value="true" id="check_2" name="check_2" ng-model="user.TrainerType" />
                             <label for="check_2">
@@ -26,17 +26,21 @@
                             </label>
                         </div>
                     </div>*@
-                    @*Need to fix radio buttons!*@
-                    <div class="form-check">
-                        <input class="form-check-input" name="UserType" type="radio" value="trainer" id="trainer" ng-model="user.UserType"/>
-                        <label class="form-check-label" for="trainer">I am a Personal Trainer</label>    
+                @*Need to fix radio buttons!*@
+                <div class="checkbox-holder text-left">
+                    <div>
+                        <input class="form-control form-white" type="radio" name="UserType" value="trainer" id="trainer" ng-model="user.UserType">
+                        <label for="trainer"><span>I am a personal trainer</span></label>
                     </div>
-                    <div class="form-check">
-                        <input class="form-check-input" name="UserType" type="radio" value="client" id="client" ng-model="user.UserType" />
-                        <label class="form-check-label" for="client">I am a Personal Trainer</label>
+                    
+                    <div>
+                        <input class="form-control form-white" type="radio" name="UserType" value="client" id="client" ng-model="user.UserType">
+                        <label for="client"><span>I am a client</span></label>
                     </div>
-                    <button type="submit" class="btn btn-submit" ng-click="RegisterUser(user)">Register</button>
-                </form>
-            </div>
+                </div>
+
+                <button type="submit" class="btn btn-submit" ng-click="RegisterUser(user)">Register</button>
+            </form>
         </div>
     </div>
+</div>
