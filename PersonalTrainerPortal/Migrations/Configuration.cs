@@ -32,15 +32,37 @@ namespace PersonalTrainerPortal.Migrations
             //
 
 
-            ApplicationUser user = new ApplicationUser()
+            ApplicationUser apptrainer = new ApplicationUser()
             {
-                UserName = "admin@admin.com",
-                Email = "admin@admin.com"
+                UserName = "trainer@trainer.com",
+                Email = "trainer@trainer.com"
+            };
+
+            ApplicationUser appClient1 = new ApplicationUser()
+            {
+                UserName = "client1@client.com",
+                Email = "client1@client.com"
+            };
+
+            ApplicationUser appClient2 = new ApplicationUser()
+            {
+                UserName = "client2@client.com",
+                Email = "client2@client.com"
             };
 
             context.Users.AddOrUpdate(
                 u => u.UserName,
-                user
+                apptrainer
+                );
+
+            context.Users.AddOrUpdate(
+                u => u.UserName,
+                appClient1
+                );
+
+            context.Users.AddOrUpdate(
+                u => u.UserName,
+                appClient2
                 );
 
             context.SaveChanges();
@@ -50,7 +72,9 @@ namespace PersonalTrainerPortal.Migrations
             var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
 
             //UserManage.AddPassword will also add password encryption
-            UserManager.AddPassword(context.Users.Where(u => u.Email == "admin@admin.com").FirstOrDefault().Id, "P@ssword123");
+            UserManager.AddPassword(context.Users.Where(u => u.Email == "trainer@trainer.com").FirstOrDefault().Id, "P@ssword123");
+            UserManager.AddPassword(context.Users.Where(u => u.Email == "client1@client.com").FirstOrDefault().Id, "P@ssword123");
+            UserManager.AddPassword(context.Users.Where(u => u.Email == "client2@client.com").FirstOrDefault().Id, "P@ssword123");
 
             // Create RoleManager to create role for 'Admin'
             var RoleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
@@ -61,24 +85,53 @@ namespace PersonalTrainerPortal.Migrations
 
             RoleManager.Create(new IdentityRole
             {
-                Name = "Customer"
+                Name = "client"
+            });
+
+            RoleManager.Create(new IdentityRole
+            {
+                Name = "trainer"
             });
 
             context.SaveChanges();
 
-            UserManager.AddToRole(context.Users.Where(u => u.Email == "admin@admin.com").FirstOrDefault().Id.ToString(), "Admin");
+            UserManager.AddToRole(context.Users.Where(u => u.Email == "trainer@trainer.com").FirstOrDefault().Id.ToString(), "trainer");
+            UserManager.AddToRole(context.Users.Where(u => u.Email == "client1@client.com").FirstOrDefault().Id.ToString(), "client");
+            UserManager.AddToRole(context.Users.Where(u => u.Email == "client2@client.com").FirstOrDefault().Id.ToString(), "client");
 
             context.SaveChanges();
 
             PersonalTrainer personalTrainer = new PersonalTrainer()
             {
-                UserID = user.Id,
-                FirstName = "admin",
-                LastName = "admin",
-                Email = user.Email
+                UserID = apptrainer.Id,
+                FirstName = "trainer",
+                LastName = "trainer",
+                Email = apptrainer.Email
 
             };
             context.PersonalTrainers.Add(personalTrainer);
+            context.SaveChanges();
+
+            Client client1 = new Client()
+            {
+                UserID = appClient1.Id,
+                FirstName = "client1",
+                LastName = "client1",
+                Email = appClient1.Email,
+                PersonalTrainerID = personalTrainer.UserID
+            };
+
+            Client client2 = new Client()
+            {
+                UserID = appClient2.Id,
+                FirstName = "client2",
+                LastName = "client2",
+                Email = appClient2.Email,
+                PersonalTrainerID = personalTrainer.UserID
+            };
+
+            context.Clients.Add(client1);
+            context.Clients.Add(client2);
             context.SaveChanges();
         }
     }

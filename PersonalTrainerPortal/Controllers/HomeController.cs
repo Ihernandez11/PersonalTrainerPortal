@@ -159,6 +159,7 @@ namespace PersonalTrainerPortal.Controllers
                 
             }
 
+            //Set RegisterButtonError to true so the script that opens the Register Popup runs
             ViewBag.RegisterButtonError = "true";
             //create a list of the errors from ModelState
             List<string> errors = new List<string>();

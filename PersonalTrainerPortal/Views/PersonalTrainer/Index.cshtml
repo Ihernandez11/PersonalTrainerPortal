@@ -90,15 +90,15 @@
                                 <tbody>
                                    @if (Model.Offerings != null)
                                    {
-                                    foreach (var o in Model.Offerings)
-                                    {
+                                       foreach (var o in Model.Offerings)
+                                       {
                                         <tr>
                                             <td>@o.Title</td>
-                                            <td><a href="#">@o.Description</a></td>
+                                            <td><a  href="#">@o.Description</a></td>
                                             <td>@o.Price</td>
                                             <td class="rating_2"><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class=" icon-star-empty"></i><i class=" icon-star-empty"></i></td>
                                         </tr>
-                                    }
+                                       }
                                    }
 
                                 </tbody>
@@ -106,7 +106,8 @@
                         </div>
                     </div><!--wrapper_indent -->
                     <div class="wrapper_indent">
-                        @Html.ActionLink("Manage Clients", "Clients", "PersonalTrainer", new { UID = Model.UserID})
+                        @Html.ActionLink("Manage Clients", "Clients", "PersonalTrainer", new { UID = Model.UserID }, new { @class = "btn-link" })
+                        @Html.ActionLink("Manage Exercises", "Exercises", "PersonalTrainer", new { UID = Model.UserID }, new { @class = "btn-link" })
                     </div>
                 </div>
             </div>

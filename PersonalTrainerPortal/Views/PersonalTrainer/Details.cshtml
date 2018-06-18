@@ -1,0 +1,91 @@
+﻿@model PersonalTrainerPortal.Models.Data.Client
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<div class="container_styled_1">
+
+    <h2>Set Workout</h2>
+    <div class="container margin_60">
+        <div class="row">
+            <aside class="col-md-3" id="sidebar">
+                <div class="theiaStickySidebar">
+                </div>
+            </aside>
+            <div class="col-md-9">
+                <div class="box_style_6">
+                    <hr class="styled_2">
+                    <div class="indent_title_in">
+                        <i class="icon_archive_alt"></i>
+                        <h3>My Clients</h3>
+                    </div>
+                    <div class="wrapper_indent">
+                        <div>
+                            <h4>Client</h4>
+                            <hr />
+                            <dl class="dl-horizontal">
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.UserID)
+                                </dt>
+
+                                <dd>
+                                    @Html.DisplayFor(model => model.UserID)
+                                </dd>
+
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.FirstName)
+                                </dt>
+
+                                <dd>
+                                    @Html.DisplayFor(model => model.FirstName)
+                                </dd>
+
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.LastName)
+                                </dt>
+
+                                <dd>
+                                    @Html.DisplayFor(model => model.LastName)
+                                </dd>
+
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.Email)
+                                </dt>
+
+                                <dd>
+                                    @Html.DisplayFor(model => model.Email)
+                                </dd>
+
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.PhoneNumber)
+                                </dt>
+
+                                <dd>
+                                    @Html.DisplayFor(model => model.PhoneNumber)
+                                </dd>
+
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.PersonalTrainerID)
+                                </dt>
+
+                                <dd>
+                                    @Html.DisplayFor(model => model.PersonalTrainerID)
+                                </dd>
+
+                            </dl>
+                        </div>
+                        <p>
+                            @Html.ActionLink("Back to List", "Index", new { UID = Model.PersonalTrainerID })
+                        </p>
+                    </div><!--wrapper_indent -->
+
+                </div>
+            </div>
+
+        </div><!--End row -->
+    </div><!--End container -->
+</div>
+
+
+

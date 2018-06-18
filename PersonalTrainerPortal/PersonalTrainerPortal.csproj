@@ -564,6 +564,9 @@
     <Content Include="Views\Shared\RegisterPopupPartial.cshtml" />
     <Content Include="Views\PersonalTrainer\Clients.cshtml" />
     <Content Include="Views\Client\Index.cshtml" />
+    <Content Include="Views\PersonalTrainer\Details.cshtml" />
+    <Content Include="Views\PersonalTrainer\Remove.cshtml" />
+    <Content Include="Views\PersonalTrainer\Exercises.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
