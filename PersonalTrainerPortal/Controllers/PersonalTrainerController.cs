@@ -212,6 +212,9 @@ namespace PersonalTrainerPortal.Controllers
                 db.Exercises.Add(newExercise);
                 db.SaveChanges();
 
+                //Need to make Video not required
+                if(exercise.VideoTitle != null)
+                {
                 Video newVideo = new Video()
                 {
                     Title = exercise.VideoTitle,
@@ -221,7 +224,7 @@ namespace PersonalTrainerPortal.Controllers
                 };
                 db.Videos.Add(newVideo);
                 db.SaveChanges();
-
+                }
 
                 return Json(new { createStatus = "success", UID });
             }
