@@ -1,5 +1,8 @@
 ﻿(function () {
-    var app = angular.module("MainModule", []);
+    //Main App
+    var app = angular.module("MainModule", ['ngRoute']);
+
+
     //LoginController
     var LoginController = function ($scope, $http, $window) {
 
@@ -23,6 +26,7 @@
 
     app.controller("LoginController", ["$scope", "$http", "$window", LoginController]);
 
+    //Register Controller
     var RegisterController = function ($scope, $http, $window) {
 
         $scope.RegisterUser = function (user) {
@@ -36,12 +40,12 @@
                     if (user.UserType == "trainer") {
                         $window.location.href = '/personaltrainer/index?UID=' + response.data.UID;
                     }
-                    
+
                     //Redirect to Client/index page with userID if ClientType is true
                     if (user.UserType == "client") {
                         $window.location.href = '/client/index?UID=' + response.data.UID;
                     }
-                    
+
                 }
 
                 if (response.data.registerStatus == "modelfail") {
@@ -51,8 +55,8 @@
 
                     //console.log($scope.errorMessages);
 
-                    
-            }
+
+                }
 
                 //Reload page with error if fail
                 if (response.data.registerStatus == "fail") {
@@ -68,5 +72,45 @@
 
     app.controller("RegisterController", ["$scope", "$http", "$window", RegisterController]);
 
+
+    //Exercise Controller
+    var ExerciseController = function ( $route, $routeParams) {
+
+
+
+        //Get Exercises
+        var param1 = $route;
+        console.log(param1);
+
+
+        
+
+        //Create Exercise
+        //$scope.CreateExercise = function (exercise) {
+        //    $http.post("/personaltrainer/createexercise", exercise).then(function (response) {
+
+
+        //    })
+
+
+        //Edit Exercise
+
+        //Delete Exercise
+
+    }
+
+
+    app.config(function ($routeProvider, $locationProvider) {
+        $routeProvider
+            .when('/personaltrainer/exercises', {
+                templateUrl: 'exercises',
+                controller: 'ExerciseController'
+            });
+    })
+
+    app.controller("ExerciseController", [ "$route", "$routeParams", ExerciseController]);
+
+
+//closing app function bracket
 }());
 

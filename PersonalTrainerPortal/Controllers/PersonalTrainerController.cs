@@ -136,5 +136,67 @@ namespace PersonalTrainerPortal.Controllers
             return View(exercises);
         }
 
+        [HttpPost]
+        public ActionResult CreateExercise(ExerciseViewModel exercise)
+        {
+            string UID = exercise.PersonalTrainerID;
+
+            if (exercise.ExerciseTitle == null)
+            {
+                ModelState.AddModelError("", "Please enter a Title");
+            }
+
+            if (exercise.ExerciseDescription == null)
+            {
+                ModelState.AddModelError("", "Please enter a Description");
+            }
+
+            //If success - return JSON with success. JS will do the Get to reload the page
+            if (ModelState.IsValid)
+            {
+                Exercise newExercise = new Exercise()
+                {
+                    Title = exercise.ExerciseTitle,
+                    Description = exercise.ExerciseDescription,
+                    PersonalTrainerID = UID
+                };
+
+                db.Exercises.Add(newExercise);
+                db.SaveChanges();
+
+                Video newVideo = new Video()
+                {
+                    Title = exercise.VideoTitle,
+                    Description = exercise.VideoDescription,
+                    ExerciseID = newExercise.ID
+                };
+                db.Videos.Add(newVideo);
+                db.SaveChanges();
+
+                
+                return Json(new { status = "success"});
+            }
+
+            //create Exercise Instance
+
+            //Create Video Instance
+
+            //Store in DB
+
+            //If error - return Model State errors
+            List<string> errors = new List<string>();
+            foreach (var v in ModelState.Values)
+            {
+                foreach (var e in v.Errors)
+                {
+                    errors.Add(e.ErrorMessage);
+                }
+            }
+
+           
+
+            return Json(new {  });
+        }
+
     }
 }

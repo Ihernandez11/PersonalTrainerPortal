@@ -15,7 +15,9 @@ namespace PersonalTrainerPortal.Models.Data
         [Required]
         public string Description { get; set; }
         [Required]
+
         public string PersonalTrainerID { get; set; }
+
 
 
     }

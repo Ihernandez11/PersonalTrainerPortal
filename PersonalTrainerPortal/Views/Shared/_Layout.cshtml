@@ -18,13 +18,15 @@
     <!-- Modernizr -->
     <script src="/Content/js/modernizr.js"></script>
     <script data-require="angular.js@1.6.6" data-semver="1.6.6" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.6/angular.min.js"></script>
+    <script src="~/Content/angular/angular-route.js"></script>
     <script src="/Content/angular/AuthController.js"></script>
+    
     <!--[if lt IE 9]>
       <script src="/Content/js/html5shiv.min.js"></script>
       <script src="/Content/js/respond.min.js"></script>
     <![endif]-->
 </head>
-<body>
+<body ng-app="MainModule">
     <!--[if lte IE 8]>
         <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a>.</p>
     <![endif]-->
@@ -235,7 +237,7 @@
                     </ul>
                 </div>
                 <div class="col-md-3 hidden-sm hidden-xs">
-                    <img src="/Content/img/footer_img.png" width="257" height="302" alt="Image" class="footer_pic">
+                    <!--<img src="/Content/img/footer_img.png" width="257" height="302" alt="Image" class="footer_pic">-->
                 </div>
             </div>
             <!-- End row -->
@@ -252,7 +254,7 @@
     <div id="toTop"></div>
     <!-- Back to top button -->
     <!-- Login modal -->
-    <div ng-app="MainModule">
+    <div >
         @Html.Partial("LoginPopupPartial")
         <!-- Register modal -->
         @Html.Partial("RegisterPopupPartial")
