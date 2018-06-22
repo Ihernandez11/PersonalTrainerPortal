@@ -74,29 +74,31 @@
 
 
     //Exercise Controller
-    var ExerciseController = function ( $route, $routeParams) {
+    var ExerciseController = function ($http, $scope, $window, $route, $routeParams) {
 
-
-
-        //Get Exercises
-        var param1 = $route;
-        console.log(param1);
-
-
-        
 
         //Create Exercise
-        //$scope.CreateExercise = function (exercise) {
-        //    $http.post("/personaltrainer/createexercise", exercise).then(function (response) {
+        $scope.CreateExercise = function (exercise) {
+            $http.post("/personaltrainer/createexercise", exercise).then(function (response) {
+                console.log(response.data);
+
+                if (response.data.createStatus == "success") {
+                    $window.location.href = '/personaltrainer/exercises?UID=' + response.data.UID;
+                }
+
+                if (response.data.createStatus == "fail") {
+                    $scope.errorMessages = response.data.errors;
+                }
 
 
-        //    })
+            })
 
 
-        //Edit Exercise
+            //Edit Exercise
 
-        //Delete Exercise
+            //Delete Exercise
 
+        }
     }
 
 
@@ -108,7 +110,7 @@
             });
     })
 
-    app.controller("ExerciseController", [ "$route", "$routeParams", ExerciseController]);
+    app.controller("ExerciseController", ["$http", "$scope", "$window", "$route", "$routeParams", ExerciseController]);
 
 
 //closing app function bracket

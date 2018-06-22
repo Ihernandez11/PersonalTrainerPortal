@@ -1,4 +1,4 @@
-﻿@model IEnumerable<PersonalTrainerPortal.Models.Data.Exercise>
+﻿@model IEnumerable<PersonalTrainerPortal.Models.ExerciseViewModel>
 
 @{
     ViewBag.Title = "Exercises";
@@ -17,9 +17,16 @@
                             </div>
                             <div class="menu-wrapper">
                                 <form>
-                                    <label>Exercise Name</label>
-                                    <label>Exercise Description</label>
-                                    <label>Tags</label>
+                                    <ul ng-repeat="error in errorMessages">
+                                        <li class="text-danger"><strong>{{error}}</strong></li>
+                                    </ul>
+                                    <input type="text" class="form-control" placeholder="Exercise Title" ng-model="exercise.ExerciseTitle" />
+                                    <input type="text" class="form-control" placeholder="Exercise Description" ng-model="exercise.ExerciseDescription" />
+                                    <input type="text" class="form-control" placeholder="Video Title" ng-model="exercise.VideoTitle" />
+                                    <input type="text" class="form-control" placeholder="Video Description" ng-model="exercise.VideoDescription" />
+                                    <input type="text" class="form-control" placeholder="Video Youtube URL" ng-model="exercise.VideoURL" />
+                                    <input type="hidden" class="form-control" ng-init="exercise.PersonalTrainerID = '@Request.Params[0]'" ng-model="exercise.PersonalTrainerID" />
+                                    <button type="submit" class="btn btn-submit" ng-click="CreateExercise(exercise)">Create</button>
                                 </form>
 
 
@@ -43,10 +50,10 @@
                                 <table class="table table-striped">
                                     <tr>
                                         <th>
-                                            @Html.DisplayNameFor(model => model.Title)
+                                            Title
                                         </th>
                                         <th>
-                                            @Html.DisplayNameFor(model => model.Description)
+                                            Description
                                         </th>
                                         <th></th>
                                     </tr>
@@ -55,15 +62,21 @@
                                     {
                                         <tr>
                                             <td>
-                                                @Html.DisplayFor(modelItem => item.Title)
+                                                @Html.DisplayFor(modelItem => item.ExerciseTitle)
                                             </td>
                                             <td>
-                                                @Html.DisplayFor(modelItem => item.Description)
+                                                @Html.DisplayFor(modelItem => item.ExerciseDescription)
                                             </td>
                                             <td>
-                                                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                                                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-                                                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                                                @Html.ActionLink("Edit", "Edit", new { id = item.PersonalTrainerID }) |
+                                                @Html.ActionLink("Details", "Details", new { id = item.PersonalTrainerID }) |
+                                                @Html.ActionLink("Delete", "Delete", new { id = item.PersonalTrainerID })
+                                                @if (ViewBag.NullVideo == false)
+    {
+
+                                            <text>| <a href = "@item.VideoURL" class="video tooltip-1" data-placement="top" title="" data-original-title="@item.VideoTitle">See Video</a></text>
+
+}
                                             </td>
                                         </tr>
                                     }

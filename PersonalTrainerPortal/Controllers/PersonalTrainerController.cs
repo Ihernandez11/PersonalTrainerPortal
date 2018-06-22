@@ -21,7 +21,7 @@ namespace PersonalTrainerPortal.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            PersonalTrainer personalTrainer = db.PersonalTrainers.Where(p=> p.UserID==UID).SingleOrDefault();
+            PersonalTrainer personalTrainer = db.PersonalTrainers.Where(p => p.UserID == UID).SingleOrDefault();
 
             if (personalTrainer == null)
             {
@@ -110,9 +110,11 @@ namespace PersonalTrainerPortal.Controllers
             client.PersonalTrainerID = null;
             db.SaveChanges();
 
-            return RedirectToAction("Clients", new {  UID });
+            return RedirectToAction("Clients", new { UID });
         }
 
+
+        //GET Exercises
         public ActionResult Exercises(string UID)
         {
             if (UID == null)
@@ -120,20 +122,66 @@ namespace PersonalTrainerPortal.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            
+
 
             PersonalTrainer personalTrainer = db.PersonalTrainers.Where(p => p.UserID == UID).SingleOrDefault();
-            //Return the client by the clientID passed
-            List<Exercise> exercises = new List<Exercise>();
-            exercises = db.Exercises.Where(e => e.PersonalTrainerID == UID).ToList();
-
             //Get Workouts to Return Model
             if (personalTrainer == null)
             {
                 return HttpNotFound();
             }
 
-            return View(exercises);
+            //Return the ExerciseViewModel based on the Trainer UID
+            List<ExerciseViewModel> evmList = new List<ExerciseViewModel>();
+
+
+            List<Exercise> exercises = new List<Exercise>();
+            exercises = db.Exercises.Where(e => e.PersonalTrainerID == UID).ToList();
+
+            //Only add to EVMList if there are exercises for that trainer in the DB
+            if (exercises != null)
+            {
+
+                foreach (var e in exercises)
+                {
+
+                    Video video = db.Videos.Where(v => v.ExerciseID == e.ID).SingleOrDefault();
+                    if (video != null)
+                    {
+                        ExerciseViewModel evm = new ExerciseViewModel()
+                        {
+                            ExerciseID = e.ID,
+                            ExerciseTitle = e.Title,
+                            ExerciseDescription = e.Description,
+                            VideoTitle = video.Title,
+                            VideoDescription = video.Description,
+                            VideoURL = video.URL,
+                            PersonalTrainerID = e.PersonalTrainerID
+                        };
+                        ViewBag.NullVideo = false;
+                        evmList.Add(evm);
+                    }
+
+                    if(video == null)
+                    {
+                        ExerciseViewModel evm = new ExerciseViewModel()
+                        {
+                            ExerciseID = e.ID,
+                            ExerciseTitle = e.Title,
+                            ExerciseDescription = e.Description,
+                            PersonalTrainerID = e.PersonalTrainerID
+                        };
+                        ViewBag.NullVideo = true;
+                    }
+
+                    
+
+                }
+
+            }
+
+            //return List of EVM
+            return View(evmList);
         }
 
         [HttpPost]
@@ -168,13 +216,14 @@ namespace PersonalTrainerPortal.Controllers
                 {
                     Title = exercise.VideoTitle,
                     Description = exercise.VideoDescription,
-                    ExerciseID = newExercise.ID
+                    ExerciseID = newExercise.ID,
+                    URL = exercise.VideoURL
                 };
                 db.Videos.Add(newVideo);
                 db.SaveChanges();
 
-                
-                return Json(new { status = "success"});
+
+                return Json(new { createStatus = "success", UID });
             }
 
             //create Exercise Instance
@@ -193,9 +242,9 @@ namespace PersonalTrainerPortal.Controllers
                 }
             }
 
-           
 
-            return Json(new {  });
+
+            return Json(new { createStatus = "fail", errors, UID });
         }
 
     }
