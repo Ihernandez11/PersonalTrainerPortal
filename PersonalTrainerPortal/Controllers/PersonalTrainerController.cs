@@ -156,25 +156,28 @@ namespace PersonalTrainerPortal.Controllers
                             VideoTitle = video.Title,
                             VideoDescription = video.Description,
                             VideoURL = video.URL,
-                            PersonalTrainerID = e.PersonalTrainerID
+                            PersonalTrainerID = e.PersonalTrainerID,
+                            NullVideoInd = false
                         };
-                        ViewBag.NullVideo = false;
+                        
                         evmList.Add(evm);
                     }
 
-                    if(video == null)
+                    if (video == null)
                     {
                         ExerciseViewModel evm = new ExerciseViewModel()
                         {
                             ExerciseID = e.ID,
                             ExerciseTitle = e.Title,
                             ExerciseDescription = e.Description,
-                            PersonalTrainerID = e.PersonalTrainerID
+                            PersonalTrainerID = e.PersonalTrainerID,
+                            NullVideoInd = true
                         };
-                        ViewBag.NullVideo = true;
+                        
+                        evmList.Add(evm);
                     }
 
-                    
+
 
                 }
 
@@ -199,9 +202,15 @@ namespace PersonalTrainerPortal.Controllers
                 ModelState.AddModelError("", "Please enter a Description");
             }
 
+            if (exercise.VideoTitle != null && exercise.VideoURL == null)
+            {
+                ModelState.AddModelError("", "Please enter a Video URL");
+            }
+
             //If success - return JSON with success. JS will do the Get to reload the page
             if (ModelState.IsValid)
             {
+                //create Exercise Instance
                 Exercise newExercise = new Exercise()
                 {
                     Title = exercise.ExerciseTitle,
@@ -213,27 +222,24 @@ namespace PersonalTrainerPortal.Controllers
                 db.SaveChanges();
 
                 //Need to make Video not required
-                if(exercise.VideoTitle != null)
+                if (exercise.VideoTitle != null)
                 {
-                Video newVideo = new Video()
-                {
-                    Title = exercise.VideoTitle,
-                    Description = exercise.VideoDescription,
-                    ExerciseID = newExercise.ID,
-                    URL = exercise.VideoURL
-                };
-                db.Videos.Add(newVideo);
-                db.SaveChanges();
+                    //Create Video Instance
+                    Video newVideo = new Video()
+                    {
+                        Title = exercise.VideoTitle,
+                        Description = exercise.VideoDescription,
+                        ExerciseID = newExercise.ID,
+                        URL = exercise.VideoURL
+                    };
+                    //Store in DB
+                    db.Videos.Add(newVideo);
+                    db.SaveChanges();
                 }
 
                 return Json(new { createStatus = "success", UID });
             }
 
-            //create Exercise Instance
-
-            //Create Video Instance
-
-            //Store in DB
 
             //If error - return Model State errors
             List<string> errors = new List<string>();

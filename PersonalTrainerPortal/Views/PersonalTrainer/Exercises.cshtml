@@ -42,7 +42,7 @@
                             <i class="icon_archive_alt"></i>
                             <h3>My Exercises</h3>
                         </div>
-                        <div class="wrapper_indent">
+                        <div>
 
 
                             <div class="table-responsive">
@@ -69,14 +69,13 @@
                                             </td>
                                             <td>
                                                 @Html.ActionLink("Edit", "Edit", new { id = item.PersonalTrainerID }) |
-                                                @Html.ActionLink("Details", "Details", new { id = item.PersonalTrainerID }) |
                                                 @Html.ActionLink("Delete", "Delete", new { id = item.PersonalTrainerID })
-                                                @if (ViewBag.NullVideo == false)
-    {
+                                                @if (item.NullVideoInd == false)
+                                                {
 
-                                            <text>| <a href = "@item.VideoURL" class="video tooltip-1" data-placement="top" title="" data-original-title="@item.VideoTitle">See Video</a></text>
+                                                    <text>| <a href="@item.VideoURL" class="video tooltip-1" data-placement="top" title="" data-original-title="@item.VideoTitle">See Video</a></text>
 
-}
+                                                }
                                             </td>
                                         </tr>
                                     }

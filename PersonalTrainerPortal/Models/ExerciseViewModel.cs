@@ -22,5 +22,7 @@ namespace PersonalTrainerPortal.Models
 
         public int ExerciseID { get; set; }
 
+        public bool NullVideoInd { get; set; }
+
     }
 }
