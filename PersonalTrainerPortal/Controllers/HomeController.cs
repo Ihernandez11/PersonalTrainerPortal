@@ -21,6 +21,7 @@ namespace PersonalTrainerPortal.Controllers
 
         public ActionResult Index()
         {
+            ViewBag.UserLoggedIn = false;
             return View();
         }
 

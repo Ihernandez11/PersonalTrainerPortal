@@ -4,91 +4,92 @@
     ViewBag.Title = "Exercises";
 }
 
-<div ng-controller="ExerciseController">
-    <div class="container_styled_1">
-        <div class="container margin_100_35">
-            <div class="row">
-                <aside class="col-md-5" id="sidebar">
-                    <div class="col-md-12">
+<div ng-app="ExerciseModule">
+    <div ng-controller="ExerciseController">
+        <div class="container_styled_1">
+            <div class="container margin_100_35">
+                <div class="row">
+                    <aside class="col-md-5" id="sidebar">
+                        <div class="col-md-12">
+                            <div class="box_style_6">
+                                <hr class="styled_2">
+                                <div>
+                                    <h3>Create Exercise</h3>
+                                </div>
+                                <div class="menu-wrapper">
+                                    <form>
+                                        <ul ng-repeat="error in errorMessages">
+                                            <li class="text-danger"><strong>{{error}}</strong></li>
+                                        </ul>
+                                        <input type="text" class="form-control" placeholder="Exercise Title" ng-model="exercise.ExerciseTitle" />
+                                        <input type="text" class="form-control" placeholder="Exercise Description" ng-model="exercise.ExerciseDescription" />
+                                        <input type="text" class="form-control" placeholder="Video Title" ng-model="exercise.VideoTitle" />
+                                        <input type="text" class="form-control" placeholder="Video Youtube URL" ng-model="exercise.VideoURL" />
+                                        <input type="hidden" class="form-control" ng-init="exercise.PersonalTrainerID = '@Request.Params[0]'" ng-model="exercise.PersonalTrainerID" />
+                                        <button type="submit" class="btn btn-submit" ng-click="CreateExercise(exercise)">Create</button>
+                                    </form>
+
+
+                                </div><!--wrapper_indent -->
+
+                            </div>
+                        </div>
+                    </aside>
+                    <div class="col-md-7">
                         <div class="box_style_6">
                             <hr class="styled_2">
-                            <div>
-                                <h3>Create Exercise</h3>
+                            <div class="indent_title_in">
+                                <i class="icon_archive_alt"></i>
+                                <h3>My Exercises</h3>
                             </div>
-                            <div class="menu-wrapper">
-                                <form>
-                                    <ul ng-repeat="error in errorMessages">
-                                        <li class="text-danger"><strong>{{error}}</strong></li>
-                                    </ul>
-                                    <input type="text" class="form-control" placeholder="Exercise Title" ng-model="exercise.ExerciseTitle" />
-                                    <input type="text" class="form-control" placeholder="Exercise Description" ng-model="exercise.ExerciseDescription" />
-                                    <input type="text" class="form-control" placeholder="Video Title" ng-model="exercise.VideoTitle" />
-                                    <input type="text" class="form-control" placeholder="Video Description" ng-model="exercise.VideoDescription" />
-                                    <input type="text" class="form-control" placeholder="Video Youtube URL" ng-model="exercise.VideoURL" />
-                                    <input type="hidden" class="form-control" ng-init="exercise.PersonalTrainerID = '@Request.Params[0]'" ng-model="exercise.PersonalTrainerID" />
-                                    <button type="submit" class="btn btn-submit" ng-click="CreateExercise(exercise)">Create</button>
-                                </form>
+                            <div>
 
 
+                                <div class="table-responsive">
+
+                                    <table class="table table-striped">
+                                        <tr>
+                                            <th>
+                                                Title
+                                            </th>
+                                            <th>
+                                                Description
+                                            </th>
+                                            <th></th>
+                                        </tr>
+
+                                        @foreach (var item in Model)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.ExerciseTitle)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.ExerciseDescription)
+                                                </td>
+                                                <td>
+                                                    @Html.ActionLink("Edit", "Edit", new { id = item.PersonalTrainerID }) |
+                                                    @Html.ActionLink("Delete", "Delete", new { id = item.PersonalTrainerID })
+                                                    @if (item.NullVideoInd == false)
+                                                    {
+
+                                                        <text>| <a href="@item.VideoURL" class="video tooltip-1" data-placement="top" title="" data-original-title="@item.VideoTitle">See Video</a></text>
+
+                                                    }
+                                                </td>
+                                            </tr>
+                                        }
+
+                                    </table>
+                                </div>
                             </div><!--wrapper_indent -->
 
                         </div>
                     </div>
-                </aside>
-                <div class="col-md-7">
-                    <div class="box_style_6">
-                        <hr class="styled_2">
-                        <div class="indent_title_in">
-                            <i class="icon_archive_alt"></i>
-                            <h3>My Exercises</h3>
-                        </div>
-                        <div>
 
+                </div><!--End row -->
+            </div><!--End container -->
+        </div>
 
-                            <div class="table-responsive">
-
-                                <table class="table table-striped">
-                                    <tr>
-                                        <th>
-                                            Title
-                                        </th>
-                                        <th>
-                                            Description
-                                        </th>
-                                        <th></th>
-                                    </tr>
-
-                                    @foreach (var item in Model)
-                                    {
-                                        <tr>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.ExerciseTitle)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.ExerciseDescription)
-                                            </td>
-                                            <td>
-                                                @Html.ActionLink("Edit", "Edit", new { id = item.PersonalTrainerID }) |
-                                                @Html.ActionLink("Delete", "Delete", new { id = item.PersonalTrainerID })
-                                                @if (item.NullVideoInd == false)
-                                                {
-
-                                                    <text>| <a href="@item.VideoURL" class="video tooltip-1" data-placement="top" title="" data-original-title="@item.VideoTitle">See Video</a></text>
-
-                                                }
-                                            </td>
-                                        </tr>
-                                    }
-
-                                </table>
-                            </div>
-                        </div><!--wrapper_indent -->
-
-                    </div>
-                </div>
-
-            </div><!--End row -->
-        </div><!--End container -->
     </div>
-
 </div>

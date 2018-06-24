@@ -16,6 +16,8 @@ namespace PersonalTrainerPortal.Controllers
         // GET: PersonalTrainer
         public ActionResult Index(string UID)
         {
+            ViewBag.UserLoggedIn = true;
+
             if (UID == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -36,6 +38,8 @@ namespace PersonalTrainerPortal.Controllers
 
         public ActionResult Clients(string UID)
         {
+            ViewBag.UserLoggedIn = true;
+
             if (UID == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -51,8 +55,109 @@ namespace PersonalTrainerPortal.Controllers
             return View(clients);
         }
 
-        public ActionResult Details(string UID, string clientID)
+        public ActionResult Workout(string UID, string CID)
         {
+            ViewBag.UserLoggedIn = true;
+
+            if (UID == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            if (CID == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            
+
+            PersonalTrainer personalTrainer = db.PersonalTrainers.Where(p => p.UserID == UID).SingleOrDefault();
+            //Return the client by the clientID passed
+            Client client = db.Clients.Where(c => c.UserID == CID).SingleOrDefault();
+
+            //Add all exercises tied to the personal trainer
+            List<Exercise> exercises = db.Exercises.Where(e => e.PersonalTrainerID == UID).ToList();
+
+            ManageWorkoutViewModel mwvm = new ManageWorkoutViewModel()
+            {
+                PersonalTrainerID = personalTrainer.UserID,
+                ClientID = client.UserID,
+                ClientFirstName = client.FirstName,
+                ClientLastName = client.LastName,
+                ClientEmail = client.Email,
+                ClientPhoneNumber = client.PhoneNumber
+            };
+
+
+            return View(mwvm);
+        }
+
+        public ActionResult GetExercises(string UID)
+        {
+
+            PersonalTrainer personalTrainer = db.PersonalTrainers.Where(p => p.UserID == UID).SingleOrDefault();
+            //Get Workouts to Return Model
+            if (personalTrainer == null)
+            {
+                return Json(new { errorMessage = "No Personal Trainer has been found" });
+            }
+
+            //Return the ExerciseViewModel based on the Trainer UID
+            List<ExerciseViewModel> evmList = new List<ExerciseViewModel>();
+
+
+            List<Exercise> exercises = new List<Exercise>();
+            exercises = db.Exercises.Where(e => e.PersonalTrainerID == UID).ToList();
+
+            //Only add to EVMList if there are exercises for that trainer in the DB
+            if (exercises != null)
+            {
+                foreach (var e in exercises)
+                {
+                    Video video = db.Videos.Where(v => v.ExerciseID == e.ID).SingleOrDefault();
+                    if (video != null)
+                    {
+                        ExerciseViewModel evm = new ExerciseViewModel()
+                        {
+                            ExerciseID = e.ID,
+                            ExerciseTitle = e.Title,
+                            ExerciseDescription = e.Description,
+                            VideoTitle = video.Title,
+                            VideoDescription = video.Description,
+                            VideoURL = video.URL,
+                            PersonalTrainerID = e.PersonalTrainerID,
+                            NullVideoInd = false
+                        };
+
+                        evmList.Add(evm);
+                    }
+
+                    if (video == null)
+                    {
+                        ExerciseViewModel evm = new ExerciseViewModel()
+                        {
+                            ExerciseID = e.ID,
+                            ExerciseTitle = e.Title,
+                            ExerciseDescription = e.Description,
+                            PersonalTrainerID = e.PersonalTrainerID,
+                            NullVideoInd = true
+                        };
+
+                        evmList.Add(evm);
+                    }
+                }
+
+            }
+
+            return Json(evmList, JsonRequestBehavior.AllowGet);
+        }
+
+
+            public ActionResult Details(string UID, string clientID)
+        {
+
+            ViewBag.UserLoggedIn = true;
+
             if (UID == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -77,6 +182,9 @@ namespace PersonalTrainerPortal.Controllers
 
         public ActionResult Remove(string UID, string clientID)
         {
+            ViewBag.UserLoggedIn = true;
+
+
             if (UID == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -117,6 +225,8 @@ namespace PersonalTrainerPortal.Controllers
         //GET Exercises
         public ActionResult Exercises(string UID)
         {
+            ViewBag.UserLoggedIn = true;
+
             if (UID == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -228,7 +338,6 @@ namespace PersonalTrainerPortal.Controllers
                     Video newVideo = new Video()
                     {
                         Title = exercise.VideoTitle,
-                        Description = exercise.VideoDescription,
                         ExerciseID = newExercise.ID,
                         URL = exercise.VideoURL
                     };

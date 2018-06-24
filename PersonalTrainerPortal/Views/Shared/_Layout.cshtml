@@ -18,15 +18,17 @@
     <!-- Modernizr -->
     <script src="/Content/js/modernizr.js"></script>
     <script data-require="angular.js@1.6.6" data-semver="1.6.6" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.6/angular.min.js"></script>
-    <script src="~/Content/angular/angular-route.js"></script>
     <script src="/Content/angular/AuthController.js"></script>
-    
+    <script src="/Content/angular/angular-route.js"></script>
+    <script src="/Content/angular/ExerciseController.js"></script>
+    <script src="/Content/angular/WorkoutController.js"></script>
+
     <!--[if lt IE 9]>
       <script src="/Content/js/html5shiv.min.js"></script>
       <script src="/Content/js/respond.min.js"></script>
     <![endif]-->
 </head>
-<body ng-app="MainModule">
+<body>
     <!--[if lte IE 8]>
         <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a>.</p>
     <![endif]-->
@@ -51,12 +53,15 @@
                         <li>
                             <a href="#" class="search-overlay-menu-btn"><i class="icon-search-6"></i></a>
                         </li>
-                        <li>
-                            <a href="#" data-toggle="modal" data-target="#login" id="LoginButton" class="hidden-xs">Login</a>
-                        </li>
-                        <li>
-                            <a href="#" data-toggle="modal" data-target="#register" id="RegisterButton" class="hidden-xs">Register</a>
-                        </li>
+                        @if (ViewBag.UserLoggedIn == false)
+                        {
+                    <li>
+                        <a href="#" data-toggle="modal" data-target="#login" id="LoginButton" class="hidden-xs">Login</a>
+                    </li>
+                    <li>
+                        <a href="#" data-toggle="modal" data-target="#register" id="RegisterButton" class="hidden-xs">Register</a>
+                    </li>
+                        }
                     </ul>
                     <a class="cmn-toggle-switch cmn-toggle-switch__htx open_close" href="javascript:void(0);"><span>Menu mobile</span></a>
                     <div class="main-menu">
@@ -154,12 +159,15 @@
                             <li>
                                 <a href="#0">Purchase this template</a>
                             </li>
-                            <li>
-                                <a href="#" data-toggle="modal" data-target="#login" class="visible-xs">Login</a>
-                            </li>
-                            <li>
-                                <a href="#" data-toggle="modal" data-target="#register" class="visible-xs">Register</a>
-                            </li>
+                            @if (ViewBag.UserLoggedIn == false)
+                            {
+                        <li>
+                            <a href="#" data-toggle="modal" data-target="#login" class="visible-xs">Login</a>
+                        </li>
+                        <li>
+                            <a href="#" data-toggle="modal" data-target="#register" class="visible-xs">Register</a>
+                        </li>
+                            }
                         </ul>
                     </div>
                     <!-- End main-menu -->
@@ -205,15 +213,18 @@
                         <li>
                             <a href="#">Blog</a>
                         </li>
-                        <li>
-                            <a href="#">Login</a>
-                        </li>
-                        <li>
-                            <a href="#">Register</a>
-                        </li>
-                        <li>
-                            <a href="#">Contact us</a>
-                        </li>
+                        @if (ViewBag.UserLoggedIn == false)
+                        {
+                    <li>
+                        <a href="#">Login</a>
+                    </li>
+                    <li>
+                        <a href="#">Register</a>
+                    </li>
+                        }
+                    <li>
+                        <a href="#">Contact us</a>
+                    </li>
                     </ul>
                 </div>
                 <div class="col-md-3 col-sm-6">
@@ -253,12 +264,17 @@
     <!-- End copy -->
     <div id="toTop"></div>
     <!-- Back to top button -->
-    <!-- Login modal -->
-    <div >
+    
+    @if (ViewBag.UserLoggedIn == false)
+    {
+    <div>
+        <!-- Login modal -->
         @Html.Partial("LoginPopupPartial")
         <!-- Register modal -->
         @Html.Partial("RegisterPopupPartial")
     </div>
+
+    }
     <!-- Search Menu -->
     <div class="search-overlay-menu">
         <span class="search-overlay-close"><i class="icon_close"></i></span>

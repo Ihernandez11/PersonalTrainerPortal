@@ -254,12 +254,15 @@
     <Compile Include="Models\ExerciseViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\ManageWorkoutViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\angular\angular-route.js" />
     <Content Include="Content\angular\AuthController.js" />
+    <Content Include="Content\angular\ExerciseController.js" />
+    <Content Include="Content\angular\WorkoutController.js" />
     <Content Include="Content\assets\contact.php" />
     <Content Include="Content\assets\newsletter.php" />
     <Content Include="Content\assets\subscribe_plan.php" />
@@ -573,6 +576,7 @@
     <Content Include="Views\PersonalTrainer\Details.cshtml" />
     <Content Include="Views\PersonalTrainer\Remove.cshtml" />
     <Content Include="Views\PersonalTrainer\Exercises.cshtml" />
+    <Content Include="Views\PersonalTrainer\Workout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

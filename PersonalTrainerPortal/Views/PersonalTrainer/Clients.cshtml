@@ -49,8 +49,8 @@
                                             @Html.DisplayFor(modelItem => client.LastName)
                                         </td>
                                         <td>
-                                            @Html.ActionLink("Set Workouts", "Details", new { UID = client.PersonalTrainerID, clientID = client.UserID }) |
-                                            @Html.ActionLink("Remove Client", "Remove", new { UID = client.PersonalTrainerID, clientID = client.UserID })
+                                            @Html.ActionLink("Set Workouts", "Workout", new { UID = client.PersonalTrainerID, CID = client.UserID }) |
+                                            @Html.ActionLink("Remove Client", "Remove", new { UID = client.PersonalTrainerID, CID = client.UserID })
                                         </td>
                                     </tr>
                                 }
