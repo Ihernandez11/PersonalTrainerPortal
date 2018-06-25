@@ -72,9 +72,9 @@
                             <form class="popup-form" id="myExercise">
                                 <h3>{{ExerciseTitle}}</h3>
                                 <p class="text-danger"><strong>{{errorMessage}}</strong></p>
-                                <input type="hidden" class="form-control" ng-model="exercise.ExerciseTitle" value="{{ExerciseTitle}}" />
                                 <input type="hidden" class="form-control" ng-init="exercise.PersonalTrainerID = '@Request.Params[0]'" ng-model="exercise.PersonalTrainerID" />
                                 <input type="hidden" class="form-control" ng-init="exercise.ClientID = '@Request.Params[1]'" ng-model="exercise.ClientID" />
+                                <input type="text" class="form-control"  ng-model="exercise.ExerciseTitle" value="{{ExerciseTitle}}" placeholder="{{ExerciseTitle}}" readonly/>
                                 <input type="text" class="form-control form-white" ng-model="exercise.ExerciseDate" placeholder="Date" />
                                 <input type="text" class="form-control form-white" ng-model="exercise.ExerciseSetCount" placeholder="Number of Sets" />
                                 <input type="text" class="form-control form-white" ng-model="exercise.ExerciseRepCount" placeholder="Number of Reps" />
