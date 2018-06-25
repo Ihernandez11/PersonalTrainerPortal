@@ -10,12 +10,12 @@ namespace PersonalTrainerPortal.Models.Data
     {
         [Required]
         public int ID { get; set; }
-        [Required]
+        
         public string Title { get; set; }
         public string Description { get; set; }
-        [Required]
+        
         public string Type { get; set; }
-        [Required]
+        
         public DateTime Date { get; set; }
         public int RepCount { get; set; }
         public int SetCount { get; set; }
@@ -23,5 +23,7 @@ namespace PersonalTrainerPortal.Models.Data
         public string Instructions { get; set; }
         public int ExerciseID { get; set; }
         public string ClientID { get; set; }
+        public string PersonalTrainerID { get; set; }
+
     }
 }

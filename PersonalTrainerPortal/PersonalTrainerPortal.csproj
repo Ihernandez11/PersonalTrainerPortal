@@ -237,6 +237,14 @@
     <Compile Include="Migrations\201806221720118_RemovedRequiredFromVideoDesc.Designer.cs">
       <DependentUpon>201806221720118_RemovedRequiredFromVideoDesc.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201806252119525_RemovedRequiredFieldsFromWorkoutModel.cs" />
+    <Compile Include="Migrations\201806252119525_RemovedRequiredFieldsFromWorkoutModel.Designer.cs">
+      <DependentUpon>201806252119525_RemovedRequiredFieldsFromWorkoutModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201806252135596_AddedPTIDToWorkoutModel.cs" />
+    <Compile Include="Migrations\201806252135596_AddedPTIDToWorkoutModel.Designer.cs">
+      <DependentUpon>201806252135596_AddedPTIDToWorkoutModel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Data\BlogPost.cs" />
@@ -709,6 +717,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201806221720118_RemovedRequiredFromVideoDesc.resx">
       <DependentUpon>201806221720118_RemovedRequiredFromVideoDesc.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806252119525_RemovedRequiredFieldsFromWorkoutModel.resx">
+      <DependentUpon>201806252119525_RemovedRequiredFieldsFromWorkoutModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806252135596_AddedPTIDToWorkoutModel.resx">
+      <DependentUpon>201806252135596_AddedPTIDToWorkoutModel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

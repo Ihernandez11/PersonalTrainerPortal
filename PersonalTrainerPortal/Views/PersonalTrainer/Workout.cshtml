@@ -36,7 +36,7 @@
 
     <div class="container margin_30">
         <div class="row">
-            <aside class="col-md-4" id="sidebar" ng-controller="WorkoutController">
+            <aside class="col-md-4" id="sidebar" ng-controller="ExerciseController">
                 <div class="col-md-12">
                     <div class="box_style_6">
                         <hr class="styled_2">
@@ -54,7 +54,7 @@
 
                                     <tr ng-repeat="exercise in evmList">
                                         <td>
-                                            {{exercise.ExerciseTitle}}
+                                            {{exercise.ExerciseTitle}} <a href="#" data-toggle="modal" data-target="#exercise" id="exerciseButton" class="hidden-xs" ng-click="openExercisePopup(exercise.ExerciseTitle)">Add to Workout</a>
                                         </td>
                                     </tr>
                                 </table>
@@ -64,6 +64,27 @@
 
                     </div>
                 </div>
+                <!--Exercise Popup Start-->
+                <div class="modal fade" id="exercise" tabindex="-1" role="dialog" aria-labelledby="myExercise" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content modal-popup">
+                            <a href="#" class="close-link"><i class="icon_close_alt2"></i></a>
+                            <form class="popup-form" id="myExercise">
+                                <h3>{{ExerciseTitle}}</h3>
+                                <p class="text-danger"><strong>{{errorMessage}}</strong></p>
+                                <input type="hidden" class="form-control" ng-model="exercise.ExerciseTitle" value="{{ExerciseTitle}}" />
+                                <input type="hidden" class="form-control" ng-init="exercise.PersonalTrainerID = '@Request.Params[0]'" ng-model="exercise.PersonalTrainerID" />
+                                <input type="hidden" class="form-control" ng-init="exercise.ClientID = '@Request.Params[1]'" ng-model="exercise.ClientID" />
+                                <input type="text" class="form-control form-white" ng-model="exercise.ExerciseDate" placeholder="Date" />
+                                <input type="text" class="form-control form-white" ng-model="exercise.ExerciseSetCount" placeholder="Number of Sets" />
+                                <input type="text" class="form-control form-white" ng-model="exercise.ExerciseRepCount" placeholder="Number of Reps" />
+                                <input type="text" class="form-control form-white" ng-model="exercise.ExerciseInstructions" placeholder="Specific Instructions" />
+                                <button type="submit" class="btn btn-submit" ng-click="addExercise(exercise)">Submit</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!--Exercise Popup End-->
             </aside>
             <div class="col-md-8">
                 <div class="box_style_6">
@@ -72,9 +93,7 @@
                         <h3>Workout Calendar</h3>
                     </div>
                     <div ng-controller="CalendarController">
-                        <div id='calendar' ui-calendar="uiConfig.calendar" class="calendar" ng-model="eventSources">
-
-                        </div>
+                        @*<div id='calendar' ui-calendar="uiConfig.calendar" class="calendar" ng-model="eventSources"> </div>*@
 
                     </div>
                 </div><!--wrapper_indent -->

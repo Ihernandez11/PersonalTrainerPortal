@@ -365,5 +365,29 @@ namespace PersonalTrainerPortal.Controllers
             return Json(new { createStatus = "fail", errors, UID });
         }
 
+        [HttpPost]
+        public ActionResult AddToWorkout(ManageWorkoutViewModel exercise)
+        {
+            Exercise newExercise = db.Exercises.Where(e => e.PersonalTrainerID == exercise.PersonalTrainerID && e.Title == exercise.ExerciseTitle).SingleOrDefault();
+            //Find a way to pass the ExerciseTitle
+            Workout workout = new Workout()
+            {
+                ExerciseID = newExercise.ID,
+                Date = Convert.ToDateTime(exercise.ExerciseDate),
+                Instructions = exercise.ExerciseInstructions,
+                RepCount = Convert.ToInt32(exercise.ExerciseRepCount),
+                SetCount = Convert.ToInt32(exercise.ExerciseSetCount),
+                ClientID = exercise.ClientID,
+                PersonalTrainerID = exercise.PersonalTrainerID
+            };
+
+            
+
+            db.Workouts.Add(workout);
+            db.SaveChanges();
+
+            return Json(new { createStatus = "success"});
+        }
+
     }
 }
