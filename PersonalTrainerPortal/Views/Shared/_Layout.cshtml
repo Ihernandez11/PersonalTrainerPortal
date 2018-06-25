@@ -21,8 +21,25 @@
     <script src="/Content/angular/AuthController.js"></script>
     <script src="/Content/angular/angular-route.js"></script>
     <script src="/Content/angular/ExerciseController.js"></script>
-    <script src="/Content/angular/WorkoutController.js"></script>
+    <link href="/Content/fullcalendar.css" rel="stylesheet" />
+    <script src="/Content/js/jquery-2.2.4.min.js"></script>
+    <script src="/Scripts/moment.js"></script>
+    <script src="/Scripts/fullcalendar/fullcalendar.js"></script>
 
+    <script>
+        $(document).ready(function () {
+
+            // page is now ready, initialize the calendar...
+
+            $('#calendar').fullCalendar({
+                // put your options and callbacks here
+
+            })
+
+        });
+    </script>
+    <script src="/Content/angular/calendar.js"></script>
+    <script src="/Content/angular/WorkoutController.js"></script>
     <!--[if lt IE 9]>
       <script src="/Content/js/html5shiv.min.js"></script>
       <script src="/Content/js/respond.min.js"></script>
@@ -287,7 +304,6 @@
     </div>
     <!-- End Search Menu -->
     <!-- COMMON SCRIPTS -->
-    <script src="/Content/js/jquery-2.2.4.min.js"></script>
     <script src="/Content/js/common_scripts_min.js"></script>
     <script src="/Content/assets/validate.js"></script>
     <script src="/Content/js/functions.js"></script>

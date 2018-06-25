@@ -3,6 +3,7 @@
     ViewBag.Title = "Workout";
 }
 
+
 <div ng-app="WorkoutModule">
     <div ng-controller="WorkoutController">
         <div class="container_styled_1">
@@ -23,7 +24,7 @@
                             <li>Weight <strong class="pull-right"></strong></li>
                             <li>Fitness Goals <strong class="pull-right"></strong></li>
                             <!--<li>Lessons <strong class="pull-right">12</strong></li>
-                        <li>Courses <strong class="pull-right">15</strong></li>-->
+                            <li>Courses <strong class="pull-right">15</strong></li>-->
                         </ul>
 
                     </div>
@@ -32,9 +33,9 @@
             </div>
             <hr />
 
-            <div class="container margin_100_35">
+            <div class="container margin_30">
                 <div class="row">
-                    <aside class="col-md-12" id="sidebar">
+                    <aside class="col-md-4" id="sidebar">
                         <div class="col-md-12">
                             <div class="box_style_6">
                                 <hr class="styled_2">
@@ -49,12 +50,12 @@
                                                     Title
                                                 </th>
                                             </tr>
-                                            
+
                                             <tr ng-repeat="exercise in evmList">
                                                 <td>
                                                     {{exercise.ExerciseTitle}}
                                                 </td>
-
+                                            </tr>
                                         </table>
                                     </div>
 
@@ -63,60 +64,25 @@
                             </div>
                         </div>
                     </aside>
-                    <div class="col-md-7">
+                    <div class="col-md-8">
                         <div class="box_style_6">
                             <hr class="styled_2">
-                            <div class="indent_title_in">
-                                <i class="icon_archive_alt"></i>
-                                <h3></h3>
+                            <div class="fc-title">
+                                <h3>Workout Calendar</h3>
                             </div>
-                            <div>
+                            <div ng-controller="CalendarController">
+                                <div id='calendar' ui-calendar="uiConfig.calendar" class="span8 calendar" ng-model="eventSources">
 
-
-                                <div class="table-responsive">
-
-                                    <table class="table table-striped">
-                                        <tr>
-                                            <th>
-                                                Title
-                                            </th>
-                                            <th>
-                                                Description
-                                            </th>
-                                            <th></th>
-                                        </tr>
-
-                                        @*@foreach (var item in Model)
-                                            {
-                                                <tr>
-                                                    <td>
-                                                        @Html.DisplayFor(modelItem => item.ExerciseTitle)
-                                                    </td>
-                                                    <td>
-                                                        @Html.DisplayFor(modelItem => item.ExerciseDescription)
-                                                    </td>
-                                                    <td>
-                                                        @Html.ActionLink("Edit", "Edit", new { id = item.PersonalTrainerID }) |
-                                                        @Html.ActionLink("Delete", "Delete", new { id = item.PersonalTrainerID })
-                                                        @if (item.NullVideoInd == false)
-                                                    {
-
-                                                        <text>| <a href="@item.VideoURL" class="video tooltip-1" data-placement="top" title="" data-original-title="@item.VideoTitle">See Video</a></text>
-
-                                                }
-                                                    </td>
-                                                </tr>
-                                        }*@
-
-                                    </table>
                                 </div>
-                            </div><!--wrapper_indent -->
 
-                        </div>
+                            </div>
+                        </div><!--wrapper_indent -->
+
                     </div>
+                </div>
 
-                </div><!--End row -->
-            </div><!--End container -->
-        </div>
+            </div><!--End row -->
+        </div><!--End container -->
     </div>
+</div>
 </div>
