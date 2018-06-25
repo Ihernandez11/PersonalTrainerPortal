@@ -1,5 +1,5 @@
 ﻿
-angular.module('WorkoutModule', ['ui.calendar', 'ui.bootstrap'])
+angular.module('WorkoutModule', ['ui.calendar'])
 
 
     .controller('WorkoutController', ['$scope', '$location', '$window', '$http',
@@ -31,12 +31,28 @@ angular.module('WorkoutModule', ['ui.calendar', 'ui.bootstrap'])
         }])
 
 
-    .controller('CalendarController', ['$scope', '$compile', uiCalendarConfig,
-        function ($scope, $compile, uiCalendarConfig) {
+    .controller('CalendarController', ['$scope', '$compile', 
+        function ($scope, $compile) {
             var date = new Date();
             var d = date.getDate();
             var m = date.getMonth();
             var y = date.getFullYear();
+
+            /* config object */
+            $scope.uiConfig = {
+                calendar: {
+                    height: 450,
+                    editable: true,
+                    header: {
+                        left: 'month basicWeek basicDay agendaWeek agendaDay',
+                        center: 'title',
+                        right: 'today prev,next'
+                    },
+                    eventClick: $scope.alertEventOnClick,
+                    eventDrop: $scope.alertOnDrop,
+                    eventResize: $scope.alertOnResize
+                }
+            };
 
             $scope.events = [
                 { title: 'All Day Event', start: new Date(y, m, 1) },
@@ -46,5 +62,7 @@ angular.module('WorkoutModule', ['ui.calendar', 'ui.bootstrap'])
                 { title: 'Birthday Party', start: new Date(y, m, d + 1, 19, 0), end: new Date(y, m, d + 1, 22, 30), allDay: false },
                 { title: 'Click for Google', start: new Date(y, m, 28), end: new Date(y, m, 29), url: 'http://google.com/' }
             ];
-        }])
+
+            
+        }]) //closing controller brackets
 
