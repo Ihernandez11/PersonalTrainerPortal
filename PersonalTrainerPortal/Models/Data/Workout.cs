@@ -16,7 +16,7 @@ namespace PersonalTrainerPortal.Models.Data
         
         public string Type { get; set; }
         
-        public DateTime Date { get; set; }
+        public string Date { get; set; }
         public int RepCount { get; set; }
         public int SetCount { get; set; }
         public int TimeInterval { get; set; }

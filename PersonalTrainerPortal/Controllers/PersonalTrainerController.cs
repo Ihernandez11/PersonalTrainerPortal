@@ -69,7 +69,7 @@ namespace PersonalTrainerPortal.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            
+
 
             PersonalTrainer personalTrainer = db.PersonalTrainers.Where(p => p.UserID == UID).SingleOrDefault();
             //Return the client by the clientID passed
@@ -153,7 +153,7 @@ namespace PersonalTrainerPortal.Controllers
         }
 
 
-            public ActionResult Details(string UID, string clientID)
+        public ActionResult Details(string UID, string clientID)
         {
 
             ViewBag.UserLoggedIn = true;
@@ -269,7 +269,7 @@ namespace PersonalTrainerPortal.Controllers
                             PersonalTrainerID = e.PersonalTrainerID,
                             NullVideoInd = false
                         };
-                        
+
                         evmList.Add(evm);
                     }
 
@@ -283,7 +283,7 @@ namespace PersonalTrainerPortal.Controllers
                             PersonalTrainerID = e.PersonalTrainerID,
                             NullVideoInd = true
                         };
-                        
+
                         evmList.Add(evm);
                     }
 
@@ -368,12 +368,13 @@ namespace PersonalTrainerPortal.Controllers
         [HttpPost]
         public ActionResult AddToWorkout(ManageWorkoutViewModel exercise)
         {
-            Exercise newExercise = db.Exercises.Where(e => e.PersonalTrainerID == exercise.PersonalTrainerID && e.Title == exercise.ExerciseTitle).SingleOrDefault();
-            //Find a way to pass the ExerciseTitle
+            Exercise newExercise = db.Exercises.Where(e => e.PersonalTrainerID == exercise.PersonalTrainerID && e.Title == exercise.ExerciseTitle).FirstOrDefault();
+
             Workout workout = new Workout()
             {
                 ExerciseID = newExercise.ID,
-                Date = Convert.ToDateTime(exercise.ExerciseDate),
+                Title = exercise.ExerciseTitle,
+                Date = exercise.ExerciseDate,
                 Instructions = exercise.ExerciseInstructions,
                 RepCount = Convert.ToInt32(exercise.ExerciseRepCount),
                 SetCount = Convert.ToInt32(exercise.ExerciseSetCount),
@@ -381,12 +382,24 @@ namespace PersonalTrainerPortal.Controllers
                 PersonalTrainerID = exercise.PersonalTrainerID
             };
 
-            
-
             db.Workouts.Add(workout);
             db.SaveChanges();
 
-            return Json(new { createStatus = "success"});
+            string UID = exercise.PersonalTrainerID;
+            string CID = exercise.ClientID;
+
+            return RedirectToAction("Workout", new { UID, CID });
+        }
+
+        public ActionResult GetWorkout(string UID, string CID)
+        {
+            //If UID is null - return 404
+            //Need to reurn a List of Workouts ordered by date
+            List<Workout> workouts = db.Workouts.Where(w => w.PersonalTrainerID == UID && w.ClientID == CID).ToList();
+
+            workouts = workouts.OrderByDescending(w => w.Date).ToList();
+
+            return Json(workouts, JsonRequestBehavior.AllowGet);
         }
 
     }

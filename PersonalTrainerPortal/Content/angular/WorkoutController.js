@@ -9,8 +9,9 @@ angular.module('WorkoutModule', ['ui.calendar'])
                 $scope.evmList = evmList.data;
             }
 
+
             var onError = function () {
-                $scope.errorMessage = "Cannot retreive exercises now. Try later.";
+                $scope.errorMessage = "Cannot retreive now. Try later.";
             }
 
             function getParameterByName(name, url) {
@@ -29,35 +30,84 @@ angular.module('WorkoutModule', ['ui.calendar'])
             $http.get("/personaltrainer/getexercises?UID=" + UID)
                 .then(setExerciseScope, onError);
 
+            
+
             //Set evmList.Exercise title = Workout.exerciseTitle
             $scope.openExercisePopup = function (exerciseTitle) {
-                $scope.ExerciseTitle = exerciseTitle;
+                $scope.ExerciseName = exerciseTitle;
+                console.log("button clicked");
+                //$("#exerciseTitleForm").attr("placeholder", exerciseTitle);
+                $("#exerciseTitleForm").attr("value", exerciseTitle);
+
+
             }
 
+            
 
-            $scope.addExercise = function (exercise) {
-                $http.post("/personaltrainer/addtoworkout", exercise).then(function (response) {
-                    console.log(response)
-
-                    //Redirect if success
-                    if (response.data.createStatus == "success") {
-                        //Redirect using window.location.href to the PT/index page using the userID parameter
-                        $http.get("/personaltrainer/getexercises?UID=" + UID)
-                            .then(setExerciseScope, onError);
-
-                        $window.location.href = '/personaltrainer/index?UID=' + UID + '&CID=' + CID;
-                    }
-                    ////Reload page if failure
-                    //if (response.data.createStatus == "fail") {
-                    //    $scope.errorMessage = "Invalid Login. Please try again."
-                    //}
-
-                })
-            }
+            
         }])
 
 
+    .controller('WorkoutController', ['$scope', '$location', '$window', '$http',
+        function ($scope, $location, $window, $http) {
 
+            function getParameterByName(name, url) {
+                if (!url) url = window.location.href;
+                name = name.replace(/[\[\]]/g, "\\$&");
+                var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                    results = regex.exec(url);
+                if (!results) return null;
+                if (!results[2]) return '';
+                return decodeURIComponent(results[2].replace(/\+/g, " "));
+            }
+            
+            var setWorkoutScope = function (workouts) {
+                $scope.workouts = workouts.data;
+            }
+
+            var onError = function () {
+                $scope.errorMessage = "Cannot retreive now. Try later.";
+            }
+
+            var UID = getParameterByName('UID');
+            var CID = getParameterByName('CID');
+
+
+            $http.get("/personaltrainer/getworkout?UID=" + UID + "&CID=" + CID)
+                .then(setWorkoutScope, onError);
+
+
+        }])
+
+    .controller('ClientWorkoutController', ['$scope', '$location', '$window', '$http',
+        function ($scope, $location, $window, $http) {
+
+            function getParameterByName(name, url) {
+                if (!url) url = window.location.href;
+                name = name.replace(/[\[\]]/g, "\\$&");
+                var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                    results = regex.exec(url);
+                if (!results) return null;
+                if (!results[2]) return '';
+                return decodeURIComponent(results[2].replace(/\+/g, " "));
+            }
+
+            var setWorkoutScope = function (workouts) {
+                $scope.workouts = workouts.data;
+            }
+
+            var onError = function () {
+                $scope.errorMessage = "Cannot retreive now. Try later.";
+            }
+            
+            var UID = getParameterByName('UID');
+
+
+            $http.get("/client/getworkout?UID=" + UID)
+                .then(setWorkoutScope, onError);
+
+
+        }])
 
     
 

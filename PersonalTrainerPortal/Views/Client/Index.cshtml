@@ -4,5 +4,63 @@
     ViewBag.Title = "Index";
 }
 
-<h2>@Model.FirstName @Model.LastName</h2>
 
+<div ng-app="WorkoutModule">
+    <div class="container_styled_1">
+        <div class="container margin_100_35">
+            <div class="col-md-12">
+                <h2>@Model.FirstName @Model.LastName</h2>
+                <div class="box_style_6">
+                    <hr class="styled_2">
+                    <div class="fc-title">
+                        <h3>Workout Calendar</h3>
+                    </div>
+                    <div ng-controller="ClientWorkoutController">
+                        @*<div id='calendar' ui-calendar="uiConfig.calendar" class="calendar" ng-model="eventSources"> </div>*@
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <tr>
+                                    <th>
+                                        Date
+                                    </th>
+                                    <th>
+                                        Exercise
+                                    </th>
+                                    <th>
+                                        Set Count
+                                    </th>
+                                    <th>
+                                        Rep Count
+                                    </th>
+                                    <th>
+                                        Instructions
+                                    </th>
+                                </tr>
+
+                                <tr ng-repeat="workout in workouts">
+                                    <td>
+                                        {{workout.Date | date : shortDate}}
+                                    </td>
+                                    <td>
+                                        {{workout.Title}}
+                                    </td>
+                                    <td>
+                                        {{workout.SetCount}}
+                                    </td>
+                                    <td>
+                                        {{workout.RepCount}}
+                                    </td>
+                                    <td>
+                                        {{workout.Instructions}}
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+
+                    </div>
+                </div><!--wrapper_indent -->
+
+            </div>
+        </div>
+    </div>
+</div>
