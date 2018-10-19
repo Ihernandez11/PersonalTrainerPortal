@@ -21,7 +21,6 @@ namespace PersonalTrainerPortal.Controllers
 
         public ActionResult Index()
         {
-            ViewBag.UserLoggedIn = false;
             return View();
         }
 
@@ -42,6 +41,12 @@ namespace PersonalTrainerPortal.Controllers
         [HttpPost]
         public async Task<ActionResult> LoginUser(LoginViewModel user)
         {
+            //Add ModelState errors for null first and last name
+            if (user.UserType == null)
+            {
+                ModelState.AddModelError("", "Please select a user type.");
+            }
+
             //Check if the modelstate is valid. If it is not valid, we will return a json object that provides the 
             //error state and error message that angularjs will populate on the page
             if (!ModelState.IsValid)
@@ -65,7 +70,7 @@ namespace PersonalTrainerPortal.Controllers
                 case SignInStatus.Success:
                     //Return JSon to the angular module and then do a get with the user id parameter
                     //return RedirectToAction("Index", "PersonalTrainer", new { userID = loggedInUser.Id});
-                    return Json(new { signInStatus = "success", UID = loggedInUser.Id });
+                    return Json(new { signInStatus = "success", UID = loggedInUser.Id, user });
 
                 case SignInStatus.Failure:
                 default:

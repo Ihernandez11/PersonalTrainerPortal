@@ -1,4 +1,6 @@
-﻿using PersonalTrainerPortal.Models;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using PersonalTrainerPortal.Models;
 using PersonalTrainerPortal.Models.Data;
 using System;
 using System.Collections.Generic;
@@ -12,10 +14,15 @@ namespace PersonalTrainerPortal.Controllers
     public class PersonalTrainerController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+        private ApplicationSignInManager _signInManager;
+        private ApplicationUserManager _userManager;
 
         // GET: PersonalTrainer
         public ActionResult Index(string UID)
         {
+            //ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
+            
+
             ViewBag.UserLoggedIn = true;
 
             if (UID == null)

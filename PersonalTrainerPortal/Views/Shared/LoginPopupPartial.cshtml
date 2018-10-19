@@ -17,6 +17,17 @@
                             </label>
                         </div>
                     </div>
+                    <div class="checkbox-holder text-left">
+                        <div>
+                            <input class="form-control form-white" type="radio" name="UserType" value="trainer" id="trainer" ng-model="user.UserType">
+                            <label for="trainer"><span></span>I am a personal trainer</label>
+                        </div>
+
+                        <div>
+                            <input class="form-control form-white" type="radio" name="UserType" value="client" id="client" ng-model="user.UserType">
+                            <label for="client"><span></span>I am a client</label>
+                        </div>
+                    </div>
                     <button type="submit" class="btn btn-submit" ng-click="LoginUser(user)">Submit</button>
                 </form>
             </div>

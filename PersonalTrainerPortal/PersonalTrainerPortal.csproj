@@ -540,6 +540,9 @@
     <Content Include="Content\video\.DS_Store" />
     <Content Include="Content\video\intro.ogv" />
     <Content Include="Content\assets\.DS_Store" />
+    <None Include=".bin\bower.cmd" />
+    <None Include=".bin\git.cmd" />
+    <None Include=".bin\node.cmd" />
     <None Include="Scripts\jquery-2.0.0.intellisense.js" />
     <Content Include="Scripts\fullcalendar\fullcalendar.js" />
     <Content Include="Scripts\fullcalendar\fullcalendar.min.js" />
